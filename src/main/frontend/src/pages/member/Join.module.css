@@ -1,0 +1,75 @@
+.container{
+  margin: 100px auto;
+  padding: 50px 50px;
+  width: 500px;
+  background-color: rgba(170, 129, 16, 0.05);
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px 1px;
+}
+
+button {
+  background-color: brown;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+input{
+  border: 1px solid lightgray;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.container > div{
+  margin-bottom: 30px;
+}
+
+.container p {
+  font-size: 20px;
+}
+
+.container input{
+  width: 400px;
+}
+
+.emailDiv input{
+  width: 300px;
+}
+
+.emailDiv button{
+  width: 80px;
+}
+
+.emailDiv > div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.tel_input{
+  display: flex;
+  gap: 11px;
+}
+
+.tel_input > input{
+  width: 126px;
+}
+
+.addr1{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.addr1 input{
+  width: 310px;
+}
+
+.addr1 button{
+  width: 80px;
+}
+
+.container > button{
+  width: 400px;
+  padding: 10px 0px;
+}

@@ -1,0 +1,39 @@
+.side{
+  padding: 0px 10px;
+}
+
+.side > ul{
+  margin: 20px 0px;
+}
+
+hr{
+  margin: 30px 0px;
+}
+
+.side > ul > li{
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.side > ul > li > ul{
+  margin-top: 20px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.side > ul > li > ul > li{
+  font-size: 17px;
+  font-weight: 100; 
+}
+
+.side > ul > li > ul > li:hover{
+  color: goldenrod;
+}
+
+.icon{
+  vertical-align: middle;
+  margin-right: 5px;
+}
