@@ -16,7 +16,7 @@ const ManagerSide = () => {
           </ul>
         </li>
       </ul>
-      <hr/>
+      <hr className={styles.hr}/>
       <ul>
         <li><CiMoneyCheck1 className={styles.icon}/>구매관리
           <ul>
@@ -26,7 +26,7 @@ const ManagerSide = () => {
           </ul>
         </li>
       </ul>
-      <hr/>
+      <hr className={styles.hr}/>
       <ul>
         <li><BsPerson className={styles.icon}/>회원관리
           <ul>

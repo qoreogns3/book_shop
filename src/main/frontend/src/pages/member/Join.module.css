@@ -1,75 +1,52 @@
 .container{
-  margin: 100px auto;
-  padding: 50px 50px;
-  width: 500px;
-  background-color: rgba(170, 129, 16, 0.05);
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px 1px;
-}
-
-button {
-  background-color: brown;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-input{
-  border: 1px solid lightgray;
-  font-size: 20px;
-  border-radius: 5px;
-}
-
-.container > div{
-  margin-bottom: 30px;
-}
-
-.container p {
-  font-size: 20px;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .container input{
-  width: 400px;
+  width: 100%;
 }
 
-.emailDiv input{
-  width: 300px;
+.container > div {
+  margin-bottom: 1rem;
 }
 
-.emailDiv button{
-  width: 80px;
+.container > div > p {
+  margin-bottom: 0.2rem;
 }
 
-.emailDiv > div{
+.id_div{
   display: flex;
-  justify-content: space-between;
+  gap: 6px;
 }
 
-.tel_input{
+.id_div > input{
+  width: 70%;
+}
+
+.id_div > button{
+  width: 30%;
+}
+
+.tel_div{
   display: flex;
-  gap: 11px;
+  gap: 6px;
 }
 
-.tel_input > input{
-  width: 126px;
-}
-
-.addr1{
+.addr_div{
   display: flex;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 6px;
+  margin-bottom: 0.2rem;
 }
 
-.addr1 input{
-  width: 310px;
+.addr_div > input {
+  width: 70%;
 }
 
-.addr1 button{
-  width: 80px;
+.addr_div > button{
+  width: 30%;
 }
 
-.container > button{
-  width: 400px;
-  padding: 10px 0px;
+.btn_div > button{
+  width: 100%;
 }

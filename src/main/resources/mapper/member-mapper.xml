@@ -15,6 +15,24 @@
         <result column="MEM_ROLE"       property="memRole" />
         <result column="JOIN_DATE"      property="joinDate" />
     </resultMap>
+    
+    <insert id="join">
+        INSERT INTO SHOP_MEMBER(
+            MEM_EMAIL
+            , MEM_NAME
+            , MEM_PW
+            , MEM_TEL
+            , MEM_ADDR
+            , ADDR_DETAIL
+        ) VALUES (
+            #{memEmail}
+            , #{memName}
+            , #{memPw}
+            , #{memTel}
+            , #{memAddr}
+            , #{addrDetail}
+        )
+    </insert>
 </mapper>
 
 
