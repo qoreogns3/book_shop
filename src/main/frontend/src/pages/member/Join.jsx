@@ -27,7 +27,7 @@ const Join = () => {
     memAddr : '',
     addrDetail : ''
   })
-
+  console.log(member)
   //유효성 검사(validation) 결과 에러 메세지를 저장하는 state변수
   const [errors, setErrors] = useState({
     memEmail : '',
@@ -74,6 +74,14 @@ const Join = () => {
           errorMsg = '영문, 숫자 조합 최대 50글자까지 가능합니다.'
         }
         break;
+
+      case 'confirmPw' :
+        if (value !== member.memPw){
+          errorMsg = '비밀번호가 일치하지 않습니다.'
+        }
+
+        break;
+
       case 'memName' :
         if(value.length < 1){
           errorMsg = '이름은 필수입력입니다.'
@@ -104,9 +112,19 @@ const Join = () => {
         }
         break;
     }
-
     return errorMsg;
   }
+
+  //비밀번호 재입력시 비밀번호 재확인 
+  useEffect(()=>{
+    if(member.confirmPw){
+      const result = validateField('confirmPw', member.confirmPw)
+      setErrors(prev => ({
+        ...prev,
+        confirmPw : result
+      }))
+    } 
+  }, [member.memPw])
 
   //회원가입 버튼 활성화 여부 저장 state함수
   const [isDisable, setIsDisable] = useState(true);
@@ -240,6 +258,7 @@ const Join = () => {
           value = {member.confirmPw}
           onChange = {e => handleMember(e)}
         />
+        {errors.confirmPw && <p className='error'>{errors.confirmPw}</p>}
       </div>
       <div>
         <p>Name</p>
