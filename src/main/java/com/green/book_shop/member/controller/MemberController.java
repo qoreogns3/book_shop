@@ -6,10 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -30,4 +29,26 @@ public class MemberController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  //이메일 중복조회 api
+  @GetMapping("/checkId/{memEmail}")
+  public ResponseEntity<Integer> checkId(@PathVariable("memEmail") String memEmail){
+    try {
+      List<MemberDTO> list = memberService.checkId(memEmail);
+      return ResponseEntity.status(HttpStatus.OK).body(list.size());
+    }catch (Exception e){
+      log.error("이메일 중복조회 중 에러 발생", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+//  public ResponseEntity<?> checkId(@PathVariable("memEmail") String memEmail){
+//    try {
+//      boolean result = memberService.checkId(memEmail);
+//      return ResponseEntity.status(HttpStatus.OK).body(result);
+//    }catch (Exception e){
+//      log.error("이메일 중복조회 중 에러",e);
+//      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//    }
+//  }
 }

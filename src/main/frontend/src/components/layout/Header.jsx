@@ -10,7 +10,7 @@ const Header = () => {
     <div>
       <div className={styles.top_menu}>
         <ul>
-          <li>Login</li>
+          <li onClick={e => nav('/login')}>Login</li>
           <li>
             {/* 페이지 이동방법  1.Link  2.useNavigate */}
             <Link to='/join'>Join</Link>  

@@ -15,3 +15,17 @@ export const insertMember = async data => {
     console.log('회원가입 axios 에러',e);
   }
 }
+
+/**
+ * email 중복 조회 axios 함수
+ * @param {string} memEmail 중복 조회 할 email
+ * @returns 
+ */
+export const checkEmail = async memEmail => {
+  try{
+    const response = await axios.get(`http://localhost:8080/members/checkId/${memEmail}`);
+    return response;
+  }catch(e){
+    console.log('중복확인 에러', e);
+  }
+}

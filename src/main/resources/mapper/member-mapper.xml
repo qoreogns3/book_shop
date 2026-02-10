@@ -15,7 +15,8 @@
         <result column="MEM_ROLE"       property="memRole" />
         <result column="JOIN_DATE"      property="joinDate" />
     </resultMap>
-    
+
+
     <insert id="join">
         INSERT INTO SHOP_MEMBER(
             MEM_EMAIL
@@ -33,6 +34,14 @@
             , #{addrDetail}
         )
     </insert>
+
+    <!--이메일 중복 조회 쿼리-->
+    <select id="checkId" resultMap="member">
+        SELECT
+            MEM_EMAIL
+        FROM SHOP_MEMBER
+        WHERE MEM_EMAIL = #{memEmail}
+    </select>
 </mapper>
 
 
