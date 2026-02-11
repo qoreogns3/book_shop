@@ -37,8 +37,7 @@
 
     <!--이메일 중복 조회 쿼리-->
     <select id="checkId" resultMap="member">
-        SELECT
-            MEM_EMAIL
+        SELECT MEM_EMAIL
         FROM SHOP_MEMBER
         WHERE MEM_EMAIL = #{memEmail}
     </select>
