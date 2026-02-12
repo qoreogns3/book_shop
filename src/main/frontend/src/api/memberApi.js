@@ -29,3 +29,16 @@ export const checkEmail = async memEmail => {
     console.log('중복확인 에러', e);
   }
 }
+/**
+ * 로그인 기능 axios함수
+ * @param {object} data 입력한 email과 pw
+ * @returns 
+ */
+export const checkPw = async data => {
+  try{
+    const response = await axios.get('http://localhost:8080/members/login', {params : data});
+    return response;
+  }catch(e){
+    console.log('로그인 정보 조회 에러', e)
+  }
+}

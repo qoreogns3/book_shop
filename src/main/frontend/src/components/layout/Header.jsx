@@ -5,23 +5,45 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const nav = useNavigate();
+  const loginInfo = JSON.parse(sessionStorage.getItem('loginInfo'))
+  
+  //로그아웃 함수
+  const logout = () => {
+    sessionStorage.removeItem('loginInfo')
+    alert('로그아웃 되었습니다.')
+    nav('/')
+  }
 
   return (
     <div>
       <div className={styles.top_menu}>
-        <ul>
-          <li onClick={e => nav('/login')}>Login</li>
-          <li>
-            {/* 페이지 이동방법  1.Link  2.useNavigate */}
-            <Link to='/join'>Join</Link>  
-          </li>
-        </ul>
+        {loginInfo ? 
+          <div className={styles.loginInfo}>
+            <p>{loginInfo.memName}님 반갑습니다.</p>
+            <ul>
+              <li
+                onClick={e => {logout()}}
+              >Logout</li>
+              <li>회원정보수정</li>
+            </ul> 
+          </div>          
+        : 
+          <ul>
+            <li><Link to='/login'>Login</Link></li>
+            <li>
+              {/* 페이지 이동방법  1.Link  2.useNavigate */}
+              <Link to='/join'>Join</Link>  
+            </li>
+          </ul>
+        }
       </div>
       <div className={styles.banner_div}>
-        <img
-          className={styles.banner_img} 
-          src="/book_banner.PNG" 
-        />
+        <Link to =''>
+          <img
+            className={styles.banner_img} 
+            src="/book_banner.PNG" 
+          />
+        </Link>
         <h3 className={styles.banner_title}>BOOK SHOP</h3>
       </div>
       <div>

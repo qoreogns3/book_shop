@@ -1,13 +1,19 @@
 .top_menu{
   display: flex;
   justify-content: end;
+  margin: 8px 0px;
 }
 
-.top_menu > ul{
+.top_menu > ul,
+.loginInfo > ul{
   display: flex;
-  gap: 10px;
-  margin: 8px 0px;
+  gap: 1rem;
   cursor: pointer;
+  transition: all 10s;
+}
+
+.loginInfo > ul > li:hover{
+  color: lightslategray
 }
 
 .banner_div{
@@ -30,4 +36,7 @@
   letter-spacing: 10px;
 }
 
-
+.loginInfo{
+  display: flex;
+  gap: 1rem;
+}

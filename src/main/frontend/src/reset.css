@@ -64,6 +64,10 @@ a{
 	text-decoration: none;
 }
 
+a:hover{
+	color: lightslategray;
+}
+
 .error{
 	font-size: 0.8rem;
 	color: red;

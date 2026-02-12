@@ -27,4 +27,12 @@ public class MemberService {
   //    String email = memberMapper.checkId(memEmail);
   //    return email == null ? true : false;
   //  }
+
+  //로그인 기능
+  public MemberDTO login(MemberDTO memberDTO){
+    return memberMapper.login(memberDTO);
+  }
+  public MemberDTO loginEmail(MemberDTO memberDTO){
+    return memberMapper.loginEmail(memberDTO);
+  }
 }

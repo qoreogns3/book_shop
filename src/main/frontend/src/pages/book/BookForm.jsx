@@ -4,6 +4,8 @@ import Button from '../../components/common/Button'
 import { getCateName, regBook } from '../../api/bookApi';
 import { useNavigate } from 'react-router-dom';
 import styles from './BookForm.module.css'
+import Select from '../../components/common/Select';
+import Textarea from '../../components/common/Textarea';
 
 const BookForm = () => {
   const nav = useNavigate();
@@ -140,7 +142,7 @@ const BookForm = () => {
     <div className={styles.container}>
       <div>
         <p>Book Category</p>
-        <select
+        <Select
           name = 'cateNum'
           value={book.cateNum}
           onChange={e => handleBook(e)}
@@ -157,7 +159,7 @@ const BookForm = () => {
               )
             })
           }
-        </select>
+        </Select>
         {errors.cateNum && <p className='error'>{errors.cateNum}</p>}
       </div>
       <div>
@@ -191,12 +193,12 @@ const BookForm = () => {
       </div>
       <div>
         <p>Introduce</p>
-        <textarea
-          name='bookIntro'
+        <Textarea
           rows={5}
+          name='bookIntro'
           value={book.bookIntro}
           onChange={e => handleBook(e)}
-        ></textarea>
+        ></Textarea>
       </div>
       <div>
         <p>Publish Date</p>

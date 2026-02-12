@@ -3,6 +3,7 @@ package com.green.book_shop.member.mapper;
 import com.green.book_shop.member.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.swing.*;
 import java.util.List;
 
 @Mapper
@@ -15,4 +16,8 @@ public interface MemberMapper {
   List<MemberDTO> checkId(String memEmail);
 
   //  String checkId(String memEmail);
+
+  //로그인 메서드
+  MemberDTO login(MemberDTO memberDTO);
+  MemberDTO loginEmail(MemberDTO memberDTO);
 }

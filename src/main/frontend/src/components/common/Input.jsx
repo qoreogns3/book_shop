@@ -8,7 +8,8 @@ const Input = ({
   return (
     <input
       className={styles.input} 
-      type={type} 
+      type={type}
+      autoComplete='off' 
       {...props}  
     />
   )

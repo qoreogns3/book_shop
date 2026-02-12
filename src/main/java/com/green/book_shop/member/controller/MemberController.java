@@ -51,4 +51,25 @@ public class MemberController {
 //      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 //    }
 //  }
+
+  //로그인 기능 api
+  @GetMapping("/login")
+  public ResponseEntity<?> login(MemberDTO memberDTO){
+    try {
+      MemberDTO result = memberService.login(memberDTO);
+      MemberDTO result2 = memberService.loginEmail(memberDTO);
+      if (result2 == null){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+      }
+      else if(result == null){
+        return ResponseEntity.status(HttpStatus.OK).body("");
+      }
+      else {
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+      }
+    }catch (Exception e){
+      log.error("email과 일치하는 정보 조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

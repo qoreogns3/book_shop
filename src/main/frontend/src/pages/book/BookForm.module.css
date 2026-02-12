@@ -1,9 +1,12 @@
 .container{
   width: 300px;
-  margin: 2rem;
+  margin: 1rem;
 }
 
-.container input{
+.container input, 
+.container select, 
+.container textarea,
+.btn_div > button{
   width: 100%;
 }
 
@@ -13,40 +16,6 @@
 
 .container > div > p {
   margin-bottom: 0.2rem;
-}
-
-.container select{
-  width: 100%;
-  font-size: 0.9rem;
-  padding: 0.3rem;
-  border: 1px solid burlywood;
-  border-radius: 4px;
-  outline: none;
-  transition: all 0.15s
-}
-
-.container select:focus{
-  border-color: beige;
-  box-shadow: 0 0 0 0.2rem rgba(222,184,135,0.7);
-}
-
-.container textarea{
-  width: 100%;
-  font-size: 0.9rem;
-  padding: 0.3rem;
-  border: 1px solid burlywood;
-  border-radius: 4px;
-  outline: none;
-  transition: all 0.15s
-}
-
-.container textarea:focus{
-  border-color: beige;
-  box-shadow: 0 0 0 0.2rem rgba(222,184,135,0.7);
-}
-
-.btn_div > button{
-  width: 100%;
 }
 
 .price_author{

@@ -27,7 +27,7 @@ const Join = () => {
     memAddr : '',
     addrDetail : ''
   })
-  console.log(member)
+  
   //유효성 검사(validation) 결과 에러 메세지를 저장하는 state변수
   const [errors, setErrors] = useState({
     memEmail : '',
