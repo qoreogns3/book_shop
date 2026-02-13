@@ -1,0 +1,10 @@
+.container{
+  margin-top: 5rem;
+}
+
+.booklist{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5rem;
+}

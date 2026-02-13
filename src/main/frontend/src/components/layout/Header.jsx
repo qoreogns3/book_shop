@@ -13,18 +13,20 @@ const Header = () => {
     alert('로그아웃 되었습니다.')
     nav('/')
   }
-
+  
   return (
     <div>
       <div className={styles.top_menu}>
         {loginInfo ? 
           <div className={styles.loginInfo}>
-            <p>{loginInfo.memName}님 반갑습니다.</p>
+            <p>{loginInfo.memName} 님 반갑습니다.</p>
             <ul>
               <li
-                onClick={e => {logout()}}
+                onClick={e => logout()}
               >Logout</li>
               <li>회원정보수정</li>
+              <li>장바구니</li>
+              {loginInfo.memRole === 'MANAGER' && <li><Link to='/manage'>Manager</Link></li>}
             </ul> 
           </div>          
         : 
@@ -37,15 +39,15 @@ const Header = () => {
           </ul>
         }
       </div>
-      <div className={styles.banner_div}>
-        <Link to =''>
+      <Link to ='/'>
+        <div className={styles.banner_div}>
           <img
             className={styles.banner_img} 
             src="/book_banner.PNG" 
           />
-        </Link>
-        <h3 className={styles.banner_title}>BOOK SHOP</h3>
-      </div>
+          <h3 className={styles.banner_title}>BOOK SHOP</h3>
+        </div>
+      </Link>
       <div>
         일반사용자가 보는 메뉴
       </div>

@@ -9,7 +9,11 @@
   display: flex;
   gap: 1rem;
   cursor: pointer;
-  transition: all 10s;
+}
+
+.top_menu > ul > li,
+.loginInfo > ul > li{
+  transition: all 0.15s;
 }
 
 .loginInfo > ul > li:hover{
@@ -37,6 +41,8 @@
 }
 
 .loginInfo{
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
 }

@@ -11,7 +11,28 @@
   object-position: center 45%;
 }
 
-.container > ul{
+.container  ul{
   display: flex;
-  gap: 10px;
+  gap: 1rem
+}
+
+.loginInfo{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.loginInfo > ul{
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.loginInfo > ul > li{
+  transition: all 0.15s;
+}
+
+.loginInfo > ul > li:hover{
+  color: lightslategray
 }

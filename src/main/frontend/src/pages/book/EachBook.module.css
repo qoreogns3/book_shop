@@ -1,0 +1,43 @@
+.books {
+  display: flex;
+  flex-direction: column;
+  gap : 1rem;
+  text-align: center;
+}
+
+.bookImg{
+  width: 100%;
+  height: 220px;
+  cursor: pointer;
+}
+
+.imgDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.click{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  transition: 0.3s;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.click > div{
+  padding: 1rem;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.click:hover{
+  background-color: rgba(0,0,0,0.3);
+  opacity: 1;
+  color: white;
+}

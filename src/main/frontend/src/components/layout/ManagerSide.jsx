@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './ManagerSide.module.css'
 import { CiShoppingBasket, CiSquareChevRight, CiMoneyCheck1 } from "react-icons/ci";
 import { BsPerson } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 const ManagerSide = () => {
   return (
@@ -10,7 +11,7 @@ const ManagerSide = () => {
         <li><CiShoppingBasket className={styles.icon}/>상품관리
           <ul>
             <li><CiSquareChevRight className={styles.icon}/>카테고리관리</li>
-            <li><CiSquareChevRight className={styles.icon}/>상품등록</li>
+            <li><Link to = './book-form'><CiSquareChevRight className={styles.icon}/>상품등록</Link></li>
             <li><CiSquareChevRight className={styles.icon}/>상품재고관리</li>
             <li><CiSquareChevRight className={styles.icon}/>상품정보수정</li>
           </ul>

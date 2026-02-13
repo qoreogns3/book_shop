@@ -32,6 +32,19 @@
             , #{cateNum}
         )
     </insert>
+<!--  전체 도서 조회  -->
+    <select id="getBookList" resultMap="book">
+        SELECT *
+        FROM SHOP_BOOK
+        ORDER BY BOOK_NUM DESC
+    </select>
+
+<!--  해당 번호의 도서 조회  -->
+    <select id="getBook" resultMap="book">
+        SELECT *
+        FROM SHOP_BOOK
+        WHERE BOOK_NUM = #{bookNum}
+    </select>
 </mapper>
 
 

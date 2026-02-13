@@ -27,7 +27,8 @@
 .side > ul > li > ul > li{
   font-size: 17px;
   font-weight: 100;
-  cursor: pointer; 
+  cursor: pointer;
+  transition: all 0.15s; 
 }
 
 .side > ul > li > ul > li:hover{

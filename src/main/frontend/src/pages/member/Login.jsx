@@ -74,7 +74,12 @@ const Login = () => {
         //session storage에 로그인한 유저 정보를 저장
         sessionStorage.setItem('loginInfo', JSON.stringify(loginInfo));
         //도서 목록 페이지로 이동
-        nav('/');
+        if(loginInfo.memRole === 'MANAGER'){
+          nav('/manage')
+        }
+        else{
+          nav('/');
+        }
       }
     }
   }
