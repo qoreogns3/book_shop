@@ -1,12 +1,15 @@
 package com.green.book_shop.book.controller;
 
 import com.green.book_shop.book.dto.BookDTO;
+import com.green.book_shop.book.dto.BookImgDTO;
 import com.green.book_shop.book.service.BookService;
+import com.green.book_shop.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,12 +19,38 @@ import java.util.List;
 @Slf4j
 public class BookController {
   private final BookService bookService;
+  private final UploadUtil uploadUtil;
 
   //책 등록 api
   @PostMapping("")
-  public ResponseEntity<Object> regBook(@RequestBody BookDTO bookDTO){
+  public ResponseEntity<Object> regBook(BookDTO bookDTO
+                                        , @RequestParam("mainImg")MultipartFile mainImgFile
+                                        , @RequestParam("subImgs") MultipartFile[] subImgs){
     try {
-      bookService.regBook(bookDTO);
+      //대표 파일 첨부 기능
+      //리턴으로 원본파일명, 첨부파일명, isMain(Y)을 BookImgDTO 자료형으로 리턴해줌
+      BookImgDTO dto = uploadUtil.fileUpload(mainImgFile);
+
+      //상세 파일들 첨부 기능
+      //리턴으로 원본파일명, 첨부파일명, isMain(N)인 BookImgDTO 자료형 다수를 List로 리턴해줌
+      List<BookImgDTO> imgList = uploadUtil.multipleFileUpload(subImgs);
+      //쿼리 실행 시 빈값을 채울 모든 데이터를 통합
+      imgList.add(dto);
+
+      //다음에 insert할 bookNum 데이터 조회
+      int nextBookNum = bookService.getNextBookNum();
+
+      //조회한 nextBookNum을 bookDTO에 저장
+      bookDTO.setBookNum(nextBookNum);
+
+      //imgList안의 모든 BookImgDTO 객체에도 도서번호를 저장
+      for(BookImgDTO bookImgDTO : imgList){
+        bookImgDTO.setBookNum(nextBookNum);
+      }
+
+      //SHOP_BOOK, BOOK_IMG 테이블에 데이터 삽입
+      bookService.regBook(bookDTO, imgList);
+
       return ResponseEntity.status(HttpStatus.CREATED).build();
     }catch (Exception e){
       log.error("책 등록 에러", e);
@@ -41,6 +70,7 @@ public class BookController {
     }
   }
 
+  //해당 번호 도서 조회 api
   @GetMapping("/{bookNum}")
   public ResponseEntity<?> getBook(@PathVariable("bookNum") int bookNum){
     try {

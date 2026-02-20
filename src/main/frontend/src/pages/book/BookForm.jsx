@@ -35,6 +35,11 @@ const BookForm = () => {
     cateNum : '0'
   })
 
+  //선택한 이미지 파일을 저장할 state변수
+  const [mainImg, setMainImg] = useState(null); //대표 이미지 저장 변수
+  
+  const [subImgs, setSubImgs] = useState(null); //상세 이미지 저장 변수
+
   //유효성 검사 결과 에러 메세지를 저장할 state변수
   const [errors, setErrors] = useState({
     bookTitle : '',
@@ -128,7 +133,30 @@ const BookForm = () => {
     if(!isValid){
       return;
     }
-    const response = await regBook(book);
+
+    //입력한 도서 정보 및 첨부파일 정보를 모두 저장할 수 있는 
+    //FormData 객체 생성 및 데이터 적재
+    //입력한 데이터 및 파일을 모두 spring으로 보내기 위한 문법
+    const regForm = new FormData(); //모든 정보를 담을 통
+
+    //도서 정보 저장
+    regForm.append('bookTitle', book.bookTitle);
+    regForm.append('bookPrice', book.bookPrice);
+    regForm.append('author', book.author);
+    regForm.append('bookIntro', book.bookIntro);
+    regForm.append('publishDate', book.publishDate);
+    regForm.append('cateNum', book.cateNum);
+
+    //파일 정보 저장
+    regForm.append('mainImg', mainImg);
+
+    //상세 파일들 정보 저장
+    //배열 데이터를 전달할 수 없기 때문에, 파일 하나하나씩을 반복해서 적재
+    for(const e of subImgs){ 
+      regForm.append('subImgs', e);
+    }
+
+    const response = await regBook(regForm);
     if(response.status === 201){
       alert('책 등록이 완료되었습니다.')
       nav(0);
@@ -209,6 +237,39 @@ const BookForm = () => {
           onChange={e => handleBook(e)}
         />
         {errors.publishDate && <p className='error'>{errors.publishDate}</p>}
+      </div>
+      <div>
+        <input 
+          type="file"
+          //업로드할 파일을 선택할 때 onchange 실행 
+          //대표 이미지를 mainImg 변수에 저장
+          onChange={e => setMainImg(e.target.files[0])}   
+        />
+      </div>
+      <div>
+        <input 
+          type="file" 
+          multiple={true}
+          onChange={e => {
+            console.log(e.target.files); // {0: File, 1: File, 2: File, length: 3}
+            //선택한 모든 파일명을 console에 출력
+            for(let i = 0 ; i < e.target.files.length ; i++){
+              console.log(e.target.files[i].name);
+            }
+
+            //선택한 파일 전체를 저장할 배열 생성
+            const fileArr = [];
+
+            //선택한 파일 수만큼 배열에 파일을 저장
+            for(let i = 0 ; i < e.target.files.length ; i++){
+              fileArr.push(e.target.files[i]);
+            }
+
+            //상세 이미지들이 저장한 배열을 subImgs state 변수에 저장
+            setSubImgs(fileArr);
+
+          }} 
+        />
       </div>
       <div className={styles.btn_div}>
         <Button

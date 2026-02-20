@@ -18,14 +18,22 @@ export const getCateName = async () => {
  * @param {object} data 입력한 책 데이터 
  * @returns 
  */
+//파일도 함께 전달하기 위해서는 통신 설정을 변경해야 함
 export const regBook = async (data) => {
   try{
-    const response = await axios.post('http://localhost:8080/books', data)
+    //데이터 전송 시 파일 데이터도 포함시킨다는 설정
+    const fileConfig = {
+      header : {'Content-Type' : 'multipart/form-data'}
+    };
+
+    const response = await axios.post('http://localhost:8080/books', data, fileConfig)
     return response;
   }catch(e){
     console.log('책 등록 실패', e)
   }
 }
+
+
 /**
  * 모든 도서 리스트 조회
  * @returns 

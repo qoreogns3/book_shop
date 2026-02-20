@@ -17,14 +17,16 @@
 
     <insert id="regBook">
         INSERT INTO SHOP_BOOK (
-            BOOK_TITLE
+            BOOK_NUM
+            , BOOK_TITLE
             , AUTHOR
             , BOOK_PRICE
             , BOOK_INTRO
             , PUBLISH_DATE
             , CATE_NUM
         ) VALUES (
-            #{bookTitle}
+            #{bookNum}
+            , #{bookTitle}
             , #{author}
             , #{bookPrice}
             , #{bookIntro}
@@ -45,6 +47,12 @@
         FROM SHOP_BOOK
         WHERE BOOK_NUM = #{bookNum}
     </select>
+<!--  도서 목록 중 가장 큰 도서번호 + 1  -->
+    <select id="getNextBookNum" resultType="int">
+        SELECT IFNULL(MAX(BOOK_NUM), 0) + 1
+        FROM SHOP_BOOK
+    </select>
+
 </mapper>
 
 

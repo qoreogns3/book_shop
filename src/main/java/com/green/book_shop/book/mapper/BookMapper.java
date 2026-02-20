@@ -17,4 +17,6 @@ public interface BookMapper {
   //해당 번호의 도서 조회
   BookDTO getBook(int bookNum);
 
+  //다음에 저장될 도서번호 조회하는 쿼리
+  int getNextBookNum();
 }
