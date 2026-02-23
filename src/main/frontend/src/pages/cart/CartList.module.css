@@ -1,0 +1,43 @@
+.cart_table{
+  width: 100%;
+  text-align: center;
+}
+
+
+
+.cart_table > thead > tr{
+  background-color: brown;
+  color: white;
+  font-size: 20px;
+}
+
+.cart_table > tbody > tr:nth-child(odd){
+  background-color: antiquewhite;
+}
+
+.cart_table > tbody > tr > td{
+  vertical-align: middle;
+}
+
+.cart_table td{
+  border-left: 1px solid white;
+  padding: 5px;
+}
+
+.bookImg{
+  width: 60px;
+}
+
+.img_title{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btnDiv{
+  display: flex;
+  margin-top: 2rem;
+  justify-content: right;
+  gap: 1rem;
+}

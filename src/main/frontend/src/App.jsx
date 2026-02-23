@@ -8,6 +8,7 @@ import Login from './pages/member/Login'
 import BookForm from './pages/book/BookForm'
 import WebStorage from './study/WebStorage'
 import BookDetail from './pages/book/BookDetail'
+import CartList from './pages/cart/CartList'
 
 function App() {
 
@@ -36,7 +37,9 @@ function App() {
           {/* 로그인 페이지, URL : Localhost:5173/login */}
           <Route path='login' element={<Login/>}/>
           {/* 상품 상세 페이지, URL : Localhost:5173/bookNum*/}
-          <Route path=':bookNum' element={<BookDetail/>}/> 
+          <Route path=':bookNum' element={<BookDetail/>}/>
+          {/* 장바구니 페이지, URL : Localhost:5173/cart */}
+          <Route path='cart' element={<CartList/>}/>
         </Route>
         
         {/* 매니저 권한의 회원이 접근하는 페이지들 */}

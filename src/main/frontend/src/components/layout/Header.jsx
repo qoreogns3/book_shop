@@ -25,7 +25,7 @@ const Header = () => {
                 onClick={e => logout()}
               >Logout</li>
               <li>회원정보수정</li>
-              <li>장바구니</li>
+              <li><Link to='/cart'>장바구니</Link></li>
               {loginInfo.memRole === 'MANAGER' && <li><Link to='/manage'>Manager</Link></li>}
             </ul> 
           </div>          

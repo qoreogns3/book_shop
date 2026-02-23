@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.book_shop.book.mapper.CartMapper">
+    <resultMap       id="cart"               type="com.green.book_shop.book.dto.CartDTO">
+        <id          property="cartNum"      column="CART_NUM"/>
+        <result      property="bookNum"      column="BOOK_NUM"/>
+        <result      property="cartCnt"      column="CART_CNT"/>
+        <result      property="memEmail"     column="MEM_EMAIL"/>
+        <result      property="cartDate"     column="CART_DATE"/>
+        <association property="book"         resultMap="com.green.book_shop.book.mapper.BookMapper.book"/>
+        <association property="bookImg"      resultMap="com.green.book_shop.book.mapper.BookImgMapper.bookImg"/>
+    </resultMap>
+
+<!--  카트에 저장할 쿼리  -->
+    <insert id="insertCart">
+        INSERT INTO SHOP_CART (
+            CART_NUM
+            , BOOK_NUM
+            , CART_CNT
+            , MEM_EMAIL
+        ) VALUES (
+            #{cartNum}
+            , #{bookNum}
+            , #{cartCnt}
+            , #{memEmail}
+        )
+    </insert>
+
+<!--  카트 목록 중 가장 큰 번호 + 1  -->
+    <select id="getNextCartNum" resultType="int">
+        SELECT IFNULL(MAX(CART_NUM), 0) + 1
+        FROM SHOP_CART
+    </select>
+
+<!--  카트 목록 조회 api  -->
+    <select id="getCartList" resultMap="cart">
+        SELECT CART_NUM
+            , B.BOOK_NUM
+            , BOOK_PRICE
+            , CART_CNT
+            , CART_DATE
+            , I.UPLOAD_FILE_NAME
+            , B.BOOK_TITLE
+        FROM SHOP_CART C, SHOP_BOOK B, BOOK_IMG I
+        WHERE C.BOOK_NUM = B.BOOK_NUM
+        AND B.BOOK_NUM = I.BOOK_NUM
+        AND I.IS_MAIN = 'Y'
+        ORDER BY CART_NUM DESC;
+    </select>
+
+</mapper>

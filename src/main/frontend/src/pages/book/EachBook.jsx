@@ -8,13 +8,14 @@ const EachBook = ({data}) => {
 
   //천 단위 구분 기호 넣는 방법
   //.toLocaleString()
+
+  console.log(data.bookImgList[0].uploadFileName)
   return (
     <div className={styles.books}>
       <div className={styles.imgDiv}>
         <img
           className={styles.bookImg} 
-          src="가장 빨리 만나는 자바_메인.jpg"
-          
+          src={`http://localhost:8080/upload/${data.bookImgList[0].uploadFileName}`}
         />
         <div 
           className={styles.click}

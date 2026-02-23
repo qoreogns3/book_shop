@@ -13,8 +13,11 @@
         <result column="BOOK_INTRO"     property="bookIntro" />
         <result column="PUBLISH_DATE"   property="publishDate" />
         <result column="CATE_NUM"       property="cateNum" />
+    <!--<association property="" resultMap=""/> 1:1 관계 설정-->
+        <collection property="bookImgList" resultMap="com.green.book_shop.book.mapper.BookImgMapper.bookImg"/><!-- 1:N 관계 설정-->
+        <!--property = "멤버변수명"  resultMap = "실제 resultmap이 존재하는 namespace . result map ID"-->
     </resultMap>
-
+<!-- 도서 등록 -->
     <insert id="regBook">
         INSERT INTO SHOP_BOOK (
             BOOK_NUM
@@ -36,17 +39,31 @@
     </insert>
 <!--  전체 도서 조회  -->
     <select id="getBookList" resultMap="book">
-        SELECT *
-        FROM SHOP_BOOK
+        SELECT S.BOOK_NUM
+            , BOOK_TITLE
+            , BOOK_PRICE
+            , UPLOAD_FILE_NAME
+        FROM SHOP_BOOK S, BOOK_IMG I
+        WHERE S.BOOK_NUM = I.BOOK_NUM
+        AND I.IS_MAIN = "Y"
         ORDER BY BOOK_NUM DESC
     </select>
 
 <!--  해당 번호의 도서 조회  -->
     <select id="getBook" resultMap="book">
-        SELECT *
-        FROM SHOP_BOOK
-        WHERE BOOK_NUM = #{bookNum}
+        SELECT S.BOOK_NUM
+            , BOOK_TITLE
+            , BOOK_PRICE
+            , AUTHOR
+            , BOOK_STOCK
+            , BOOK_INTRO
+            , UPLOAD_FILE_NAME
+            , IS_MAIN
+        FROM SHOP_BOOK S, BOOK_IMG I
+        WHERE S.BOOK_NUM = I.BOOK_NUM
+        AND S.BOOK_NUM = #{bookNum}
     </select>
+
 <!--  도서 목록 중 가장 큰 도서번호 + 1  -->
     <select id="getNextBookNum" resultType="int">
         SELECT IFNULL(MAX(BOOK_NUM), 0) + 1

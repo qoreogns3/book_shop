@@ -10,11 +10,12 @@
 .book img{
   transition: 0.5s;
   cursor: zoom-in;
+  width: 176px;
+  height: 220px;
 }
 
 .book img:hover{
   scale: 1.6;
-  padding-right: 100px;
 }
 
 .book{

@@ -47,6 +47,11 @@ export const getBookList = async () => {
   }
 }
 
+/**
+ * 도서 상세 조회
+ * @param {int} bookNum 
+ * @returns 
+ */
 export const getBook = async (bookNum) => {
   try{
     const response = await axios.get(`http://localhost:8080/books/${bookNum}`)
@@ -55,3 +60,6 @@ export const getBook = async (bookNum) => {
     console.log('도서 조회 실패', e)
   }
 }
+
+
+
