@@ -51,6 +51,7 @@
         WHERE MEM_EMAIL = #{memEmail}
         AND MEM_PW = #{memPw}
     </select>
+
     <select id="loginEmail" resultMap="member">
         SELECT MEM_EMAIL
             , MEM_NAME

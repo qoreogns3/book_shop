@@ -9,7 +9,6 @@ const EachBook = ({data}) => {
   //천 단위 구분 기호 넣는 방법
   //.toLocaleString()
 
-  console.log(data.bookImgList[0].uploadFileName)
   return (
     <div className={styles.books}>
       <div className={styles.imgDiv}>
@@ -19,7 +18,7 @@ const EachBook = ({data}) => {
         />
         <div 
           className={styles.click}
-          onClick={e => nav(`/${data.bookNum}`)}  
+          onClick={e => nav(`/${data.bookNum}`)}
         >
           <div><p>상세 보기</p></div>
         </div>

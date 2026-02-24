@@ -20,7 +20,12 @@ public class CartService {
   }
 
   //카트 목록 조회 기능
-  public List<CartDTO> getCartList(){
-    return cartMapper.getCartList();
+  public List<CartDTO> getCartList(String memEmail){
+    return cartMapper.getCartList(memEmail);
+  }
+
+  //수량 변경 기능
+  public void updateCnt(CartDTO cartDTO){
+    cartMapper.updateCnt(cartDTO);
   }
 }

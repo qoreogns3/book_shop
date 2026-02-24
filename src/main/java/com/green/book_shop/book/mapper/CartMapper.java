@@ -14,5 +14,8 @@ public interface CartMapper {
   int getNextCartNum();
 
   //카트 목록 조회 메서드
-  List<CartDTO> getCartList();
+  List<CartDTO> getCartList(String memEmail);
+
+  //수량 변경 메서드
+  void updateCnt(CartDTO cartDTO);
 }

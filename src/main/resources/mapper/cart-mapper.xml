@@ -35,7 +35,7 @@
         FROM SHOP_CART
     </select>
 
-<!--  카트 목록 조회 api  -->
+<!--  카트 목록 조회 쿼리  -->
     <select id="getCartList" resultMap="cart">
         SELECT CART_NUM
             , B.BOOK_NUM
@@ -48,7 +48,15 @@
         WHERE C.BOOK_NUM = B.BOOK_NUM
         AND B.BOOK_NUM = I.BOOK_NUM
         AND I.IS_MAIN = 'Y'
+        AND C.MEM_EMAIL = #{memEmail}
         ORDER BY CART_NUM DESC;
     </select>
 
+<!--  수량 변경 쿼리  -->
+    <update id="updateCnt">
+        UPDATE SHOP_CART
+        SET CART_CNT = #{cartCnt},
+            CART_NUM = #{cartNum}
+        WHERE CART_NUM = #{cartNum}
+    </update>
 </mapper>

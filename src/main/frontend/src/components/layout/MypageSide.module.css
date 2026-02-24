@@ -1,0 +1,25 @@
+.side{
+  padding: 0px 10px;
+}
+
+.side > ul{
+  margin: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+
+.side > ul > li ,
+.side > ul > a > li{
+  font-size: 17px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 10px;
+}
+
+.side > ul > li:hover{
+  color: lightslategray;
+  background-color: beige;
+}

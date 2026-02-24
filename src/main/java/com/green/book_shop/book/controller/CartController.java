@@ -30,13 +30,25 @@ public class CartController {
   }
 
   //카트 목록 조회 api
-  @GetMapping("")
-  public ResponseEntity<?> getCartList(){
+  @GetMapping("/{memEmail}")
+  public ResponseEntity<?> getCartList(@PathVariable("memEmail") String memEmail){
     try {
-      List<CartDTO> cartDTOList = cartService.getCartList();
+      List<CartDTO> cartDTOList = cartService.getCartList(memEmail);
       return ResponseEntity.status(HttpStatus.OK).body(cartDTOList);
     }catch (Exception e){
       log.error("카트 목록 조회 에러", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  //수량 변경 api
+  @PutMapping("/cnt")
+  public ResponseEntity<?> updateCnt(@RequestBody CartDTO cartDTO){
+    try {
+      cartService.updateCnt(cartDTO);
+      return ResponseEntity.status(HttpStatus.OK).build();
+    }catch (Exception e){
+      log.error("수량 변경 오류", e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }

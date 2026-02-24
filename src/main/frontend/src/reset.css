@@ -66,6 +66,7 @@ a{
 
 a:hover{
 	color: lightslategray;
+	background-color: beige;
 }
 
 .error{
@@ -73,4 +74,9 @@ a:hover{
 	color: red;
 	opacity: 70%;
 	margin-top: 0.2rem;
+}
+
+a > li:hover{
+	color: lightslategray;
+	background-color: beige;
 }

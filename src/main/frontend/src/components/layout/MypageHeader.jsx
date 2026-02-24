@@ -1,21 +1,19 @@
 import React from 'react'
-import styles from './Header.module.css'
+import styles from './Mypageheader.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-//일반 사용자가 보는 페이지의 헤더 영역
 
-const Header = () => {
+const MypageHeader = () => {
   const nav = useNavigate();
   const loginInfo = JSON.parse(sessionStorage.getItem('loginInfo'))
-
+  
   //로그아웃 함수
   const logout = () => {
     sessionStorage.removeItem('loginInfo')
     alert('로그아웃 되었습니다.')
     nav('/')
   }
-  
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.top_menu}>
         {loginInfo ? 
           <div className={styles.loginInfo}>
@@ -47,11 +45,8 @@ const Header = () => {
           <h3 className={styles.banner_title}>BOOK SHOP</h3>
         </div>
       </Link>
-      <div>
-        일반사용자가 보는 메뉴
-      </div>
     </div>
   )
 }
 
-export default Header
+export default MypageHeader
