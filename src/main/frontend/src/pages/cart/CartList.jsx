@@ -5,6 +5,7 @@ import { deleteCart, getCartList, updateCnt } from '../../api/cartApi';
 import Button from '../../components/common/Button';
 import ListTable from '../../components/common/ListTable';
 import dayjs from 'dayjs';
+import { postBuy } from '../../api/buyApi';
 
 const CartList = () => {
 
@@ -102,10 +103,16 @@ const CartList = () => {
   }
 
   //선택 구매 버튼 클릭 시 실행 함수
-  const clickBuy = () => {
-    const buy = cntPrice();
-    
-
+  const clickBuy = async () => {
+    const buy = {
+      buyPrice : cntPrice(),
+      memEmail : JSON.parse(sessionStorage.getItem('loginInfo')).memEmail
+    };
+    const response = await postBuy(buy);
+    console.log(response)
+    if(response.status === 201){
+      alert('구매 완료')
+    }
   }
 
   console.log(cartList)
@@ -185,6 +192,7 @@ const CartList = () => {
         />
         <Button
           title = '선택 구매'
+          onClick = {e => clickBuy()}
         />
       </div>
     </div>
