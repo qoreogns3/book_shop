@@ -44,6 +44,7 @@
             , CART_DATE
             , I.UPLOAD_FILE_NAME
             , B.BOOK_TITLE
+            , MEM_EMAIL
         FROM SHOP_CART C, SHOP_BOOK B, BOOK_IMG I
         WHERE C.BOOK_NUM = B.BOOK_NUM
         AND B.BOOK_NUM = I.BOOK_NUM
@@ -52,6 +53,23 @@
         ORDER BY CART_NUM DESC;
     </select>
 
+    <!--  입력받은 책 번호 상품 조회 쿼리  -->
+    <select id="findCart" resultType="Integer">
+        SELECT BOOK_NUM
+        FROM SHOP_CART
+        WHERE BOOK_NUM = #{bookNum}
+        AND MEM_EMAIL = #{memEmail};
+    </select>
+
+    <!--  상품 수량 추가 쿼리  -->
+    <update id="addCnt">
+        UPDATE SHOP_CART
+        SET CART_CNT = CART_CNT + #{cartCnt}
+            , CART_DATE = SYSDATE()
+        WHERE BOOK_NUM = #{bookNum}
+        AND MEM_EMAIL = #{memEmail};
+    </update>
+
 <!--  수량 변경 쿼리  -->
     <update id="updateCnt">
         UPDATE SHOP_CART
@@ -59,4 +77,13 @@
             CART_NUM = #{cartNum}
         WHERE CART_NUM = #{cartNum}
     </update>
+
+<!--  삭제 쿼리  -->
+    <delete id="deleteCart">
+        DELETE
+        FROM SHOP_CART
+        WHERE CART_NUM = #{cartNum}
+    </delete>
+
+
 </mapper>

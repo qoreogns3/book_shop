@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.book_shop.book.mapper.BuyMapper">
+    <resultMap  id="buyResultMap"           type="com.green.book_shop.book.dto.BuyDTO">
+        <id     property="buyNum"           column="BUY_NUM"/>
+        <result property="buyPrice"         column="BUY_PRICE"/>
+        <result property="memEmail"         column="MEM_EMAIL"/>
+        <result property="buyDate"          column="BUY_DATE"/>
+    </resultMap>
+
+    <resultMap  id="buyDetailResultMap"     type="com.green.book_shop.book.mapper.BuyMapper">
+        <id     property="buyDetailNum"     column="BUY_DETAIL_NUM"/>
+        <result property="bookNum"          column="BOOK_NUM"/>
+        <result property="buyCnt"           column="BUY_CNT"/>
+        <result property="buyPrice"         column="BUY_PRICE"/>
+        <result property="buyNum"           column="BUY_NUM"/>
+    </resultMap>
+
+<!-- 구매 정보 등록 쿼리 -->
+    <insert id="insertBuy">
+        INSERT INTO SHOP_BUY(
+            BUY_PRICE
+            , MEM_EMAIL
+        ) VALUES(
+            #{buyPrice}
+            , #{memEmail}
+        )
+    </insert>
+
+<!--  구매 상세 정보 등록 쿼리  -->
+    <insert id="insertBuyDetail">
+        INSERT INTO BUY_DETAIL(
+            BOOK_NUM
+            , BUY_CNT
+            , BUY_PRICE
+            , BUY_NUM
+        ) VALUES
+        <foreach collection="buyDetailList" item="buyDetail" separator=",">
+            (
+                #{buyDetail.bookNum},
+                #{buyDetail.buyCnt},
+                #{buyDetail.buyPrice},
+                #{buyDetail.buyNUm}
+            )
+        </foreach>
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

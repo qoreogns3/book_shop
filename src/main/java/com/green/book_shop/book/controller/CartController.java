@@ -21,7 +21,7 @@ public class CartController {
   @PostMapping("")
   public ResponseEntity<?> insertCart(@RequestBody CartDTO cartDTO){
     try {
-      cartService.insertCart(cartDTO);
+      cartService.insertCart(cartDTO, cartDTO.getBookNum());
       return ResponseEntity.status(HttpStatus.CREATED).build();
     }catch (Exception e){
       log.error("카트 등록 에러",e);
@@ -49,6 +49,18 @@ public class CartController {
       return ResponseEntity.status(HttpStatus.OK).build();
     }catch (Exception e){
       log.error("수량 변경 오류", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  //삭제 api
+  @DeleteMapping("/{cartNum}")
+  public ResponseEntity<?> deleteCart(@PathVariable("cartNum") int cartNum){
+    try {
+      cartService.deleteCart(cartNum);
+      return ResponseEntity.status(HttpStatus.OK).build();
+    }catch (Exception e){
+      log.error("삭제 요청 실패", e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }

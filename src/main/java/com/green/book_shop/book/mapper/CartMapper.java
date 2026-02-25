@@ -18,4 +18,13 @@ public interface CartMapper {
 
   //수량 변경 메서드
   void updateCnt(CartDTO cartDTO);
+
+  //삭제 메서드
+  void deleteCart(int cartNum);
+
+  //입력받은 책 번호 상품 조회 메서드
+  Integer findCart(int bookNum, String memEmail);
+
+  //상품 수량 추가 쿼리
+  void addCnt(int cartCnt, int bookNum, String memEmail);
 }

@@ -1,0 +1,37 @@
+.list_table{
+  width: 100%;
+  text-align: center;
+}
+
+.list_table > thead > tr{
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.list_table > tbody > tr:nth-child(odd){
+  background-color: rgba(241, 218, 183, 0.3);
+  transition: 0.15s;
+}
+
+.list_table > tbody > tr:nth-child(even){
+  background-color: white;
+  transition: 0.15s;
+}
+
+.list_table > tbody > tr:nth-child(odd):hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+.list_table > tbody > tr:nth-child(even):hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+
+.list_table > tbody > tr > td{
+  vertical-align: middle;
+}
+
+.list_table td{
+  border-left: 1px solid white;
+  padding: 5px;
+}

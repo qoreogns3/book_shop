@@ -13,10 +13,15 @@ public class CartService {
   private final CartMapper cartMapper;
 
   //카트 번호 저장 후 등록 기능
-  public void insertCart(CartDTO cartDTO){
-    int num = cartMapper.getNextCartNum();
-    cartDTO.setCartNum(num);
-    cartMapper.insertCart(cartDTO);
+  public void insertCart(CartDTO cartDTO, int bookNum){
+    if(cartMapper.findCart(bookNum, cartDTO.getMemEmail()) == null){
+      int num = cartMapper.getNextCartNum();
+      cartDTO.setCartNum(num);
+      cartMapper.insertCart(cartDTO);
+    }
+    else {
+      cartMapper.addCnt(cartDTO.getCartCnt(), cartDTO.getBookNum(), cartDTO.getMemEmail());
+    }
   }
 
   //카트 목록 조회 기능
@@ -27,5 +32,10 @@ public class CartService {
   //수량 변경 기능
   public void updateCnt(CartDTO cartDTO){
     cartMapper.updateCnt(cartDTO);
+  }
+
+  //삭제 기능
+  public void deleteCart(int cartNum){
+    cartMapper.deleteCart(cartNum);
   }
 }

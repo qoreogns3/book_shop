@@ -27,11 +27,29 @@ export const getCartList = async (memEmail) => {
   }
 }
 
+/**
+ * 수량 변경
+ * @param {} data 
+ */
 export const updateCnt = async (data) => {
   try{
     await axios.put('http://localhost:8080/carts/cnt', data)
   }catch(e){
     console.log('수량 변경 실패', e)
+  }
+}
+
+/**
+ * 삭제
+ * @param {*} cartNum 
+ * @returns 
+ */
+export const deleteCart = async (cartNum) => {
+  try{
+    const response = await axios.delete(`http://localhost:8080/carts/${cartNum}`)
+    return response;
+  }catch(e){
+    console.log('삭제 실패', e)
   }
 }
 

@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../../components/common/Input'
 import styles from './CartList.module.css'
-import { getCartList, updateCnt } from '../../api/cartApi';
+import { deleteCart, getCartList, updateCnt } from '../../api/cartApi';
 import Button from '../../components/common/Button';
+import ListTable from '../../components/common/ListTable';
+import dayjs from 'dayjs';
 
 const CartList = () => {
-  
+
   //장바구니 리스트 저장 state변수
   const [cartList, setCartList] = useState([]);
+  
+  //카트번호 저장 state변수
+  const [cartNumList, setCartNumList] = useState([]);
 
   //장바구니 리스트 조회 함수
   const getList = async() => {
     const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
     setCartList(response.data)
+    //조회한 데이터를 cartNumList에 저장, 체크박스 전부 체크
+    const list = []
+    for(let e of response.data){
+      list.push(e.cartNum)
+    }
+    setCartNumList(list)
+    setCheckedItems(list)
   }
+
+
   useEffect(() => {getList()},[])  
 
+  //수량과 카트번호 저장 state변수
   const [cntAndCartNum, setCntAndCartNum] = useState(prev => ({
     cartCnt : 0,
     cartNum : 0
@@ -30,25 +45,81 @@ const CartList = () => {
       cartNum : data.cartNum
     })
   }
-  
   const putCnt = async (data) =>  {await updateCnt(data)}
-
   useEffect(()=>{
     putCnt(cntAndCartNum);
     getList();
   }, [cntAndCartNum])
 
-  
+  //삭제 버튼 클릭시 실행 함수
+  const deleteClick = async (cartNum) => {
+    await deleteCart(cartNum);
+    getList();
+  }
 
+  //선택 삭제 버튼 클릭 시 실행함수
+  const selectDelete = () => {
+    for(let e of checkedItems){
+      deleteClick(e)
+    }
+  }
+
+  //체크박스 선택시 카트번호가 저장될 state변수
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  //체크한 도서의 총 구매 가격을 계산하는 함수
+  const cntPrice = () => {
+    let checkedItemsPrice = []
+    for (let e of checkedItems){
+      for(let d of cartList){
+        if(e === d.cartNum){
+          checkedItemsPrice.push(d.book.bookPrice*d.cartCnt)
+        }
+      }
+    }
+    let cnt = 0;
+    for(let e of checkedItemsPrice){
+      cnt = cnt + e
+    }
+    return cnt;
+  }
+  
+  
+  //전체 체크박스 클릭 시 실행 함수
+  const checkAll= (e) => {
+    setCheckedItems(e.target.checked ? cartNumList : [])
+  }
+
+  //체크 박스 클릭 시 실행할 함수
+  const checkItem = (e) => {
+    if(e.target.checked){
+      setCheckedItems(prev => [...prev, Number(e.target.value)])
+    }
+    else{
+      const copyItems = checkedItems.filter((data) => {return data !== Number(e.target.value)});
+      setCheckedItems(copyItems)
+    }
+  }
+
+  //선택 구매 버튼 클릭 시 실행 함수
+  const clickBuy = () => {
+    const buy = cntPrice();
+    
+
+  }
+
+  console.log(cartList)
+  
   return (
     <div className={styles.container}>
-      <table className={styles.cart_table}>
+      <ListTable>
         <thead>
           <tr>
             <td>No</td>
             <td>
-              <Input
+              <input
                 type='checkbox'
+                onChange = {e => checkAll(e)}
               />
             </td>
             <td>도서 정보</td>
@@ -66,8 +137,11 @@ const CartList = () => {
                 <tr key={i}>
                   <td>{cartList.length - i}</td>
                   <td>
-                    <Input
+                    <input
                       type='checkbox'
+                      value={data.cartNum}
+                      checked={checkedItems.includes(data.cartNum)}
+                      onChange={e => checkItem(e)}  
                     />
                   </td>
                   <td>
@@ -89,10 +163,12 @@ const CartList = () => {
                     />
                   </td>
                   <td>{data.book.bookPrice*data.cartCnt}</td>
-                  <td>{data.cartDate}</td>
+                  {/* <td>{data.cartDate}</td> */}
+                  <td>{dayjs(data.cartDate).format('YYYY-MM-DD  hh시 mm분')}</td>
                   <td>
                     <Button
                       title = '삭제'
+                      onClick = {e=>deleteClick(data.cartNum)}
                     />
                   </td>
                 </tr>
@@ -100,10 +176,12 @@ const CartList = () => {
             })
           }
         </tbody>
-      </table>
+      </ListTable>
+      <div className={styles.cntPrice}><p>총 구매 가격 : {cntPrice()}</p></div>
       <div className={styles.btnDiv}>
         <Button
           title = '선택 삭제'
+          onClick = {e => selectDelete()}
         />
         <Button
           title = '선택 구매'
