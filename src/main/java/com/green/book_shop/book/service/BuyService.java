@@ -15,12 +15,13 @@ public class BuyService {
   private final BuyMapper buyMapper;
 
   //구매 정보, 상세 정보 등록 기능
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public void insertBuy(BuyDTO buyDTO, List<BuyDetailDTO> buyDetailDTOList){
-    buyDTO.setBuyNum(buyMapper.getNextBuyNum());
+    int buyNum = buyMapper.getNextBuyNum();
+    buyDTO.setBuyNum(buyNum);
     buyMapper.insertBuy(buyDTO);
     for(BuyDetailDTO buyDetailDTO : buyDetailDTOList){
-      buyDetailDTO.setBuyNum(buyMapper.getNextBuyNum());
+      buyDetailDTO.setBuyNum(buyNum);
     }
     buyMapper.insertBuyDetail(buyDetailDTOList);
   }

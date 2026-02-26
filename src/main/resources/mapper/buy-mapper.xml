@@ -40,12 +40,12 @@
             , BUY_PRICE
             , BUY_NUM
         ) VALUES
-        <foreach collection="buyDetailList" item="buyDetail" separator=",">
+        <foreach collection="buyDetailDTOList" item="buyDetail" separator=",">
             (
                 #{buyDetail.bookNum},
                 #{buyDetail.buyCnt},
                 #{buyDetail.buyPrice},
-                #{buyDetail.buyNUm}
+                #{buyDetail.buyNum}
             )
         </foreach>
     </insert>

@@ -46,6 +46,12 @@ const WebStorage = () => {
 
   console.log(test_data.filter(e => e.id ===1))
 
+  ///////////////////////////////////////////
+
+  //map은 데이터를 원하는 형태로 변경해서 배열로 리턴
+  const arr = [1,2,3]
+  arr.map((e) => {return e+1}); // -> [2,3,4]
+
   return (
     <div>WebStorage</div>
   )

@@ -5,20 +5,11 @@ import axios from "axios"
  * @param {*} data 
  * @returns 
  */
-export const postBuy = (data) => {
+export const postBuy = async (data) => {
   try{
-    const response = axios.post('http://localhost:8080/buys', data)
+    const response = await axios.post('http://localhost:8080/buys', data)
     return response
   }catch(e){
     console.log('구매 정보 등록 실패', e)
-  }
-}
-
-export const postBuyDetail = (data) => {
-  try{
-    const response = axios.post('http://localhost:8080/buys/details', data)
-    return response
-  } catch(e){
-    console.log('구매 상세 정보 등록 실패', e)
   }
 }

@@ -11,6 +11,7 @@ import BookDetail from './pages/book/BookDetail'
 import CartList from './pages/cart/CartList'
 import MypageLayout from './components/layout/MypageLayout'
 import CheckBoxTest from './study/CheckBoxTest'
+import BuyList from './pages/buy/BuyList'
 
 function App() {
 
@@ -52,8 +53,10 @@ function App() {
 
         {/* 마이페이지 */}
         <Route path='/mypage' element={<MypageLayout/>}>
-        {/* 장바구니 페이지, URL : Localhost:5173/cart */}
+          {/* 장바구니 페이지, URL : Localhost:5173/mypage/cart */}
           <Route path='cart' element={<CartList/>}/>
+          {/* 구매목록 페이지, URL : Localhost:5173/mypage/buy-list*/}
+          <Route path='buy-list' element={<BuyList/>}/>
         </Route>
 
       </Routes>

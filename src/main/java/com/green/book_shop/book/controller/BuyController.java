@@ -2,6 +2,7 @@ package com.green.book_shop.book.controller;
 
 import com.green.book_shop.book.dto.BuyDTO;
 import com.green.book_shop.book.dto.BuyDetailDTO;
+import com.green.book_shop.book.dto.BuyRequestDTO;
 import com.green.book_shop.book.service.BuyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,9 @@ public class BuyController {
 
   //구매 정보 등록 api
   @PostMapping("")
-  public ResponseEntity<?> insertBuy(@RequestBody BuyDTO buyDTO){
+  public ResponseEntity<?> insertBuy(@RequestBody BuyRequestDTO buyRequestDTO){
     try {
-      buyService.insertBuy(buyDTO);
+      buyService.insertBuy(buyRequestDTO.getBuyDTO(), buyRequestDTO.getBuyDetailDTOList());
       return ResponseEntity.status(HttpStatus.CREATED).build();
     }catch (Exception e){
       log.error("구매 정보 등록 실패", e);
@@ -33,16 +34,5 @@ public class BuyController {
     }
   }
 
-  //구매 상세정보 등록 api
-  @PostMapping("/details")
-  public ResponseEntity<?> insertBuyDetail(@RequestBody List<BuyDetailDTO> buyDetailDTOList){
-    try {
-      buyService.insertBuyDetail(buyDetailDTOList);
-      return ResponseEntity.status(HttpStatus.CREATED).build();
-    }catch (Exception e){
-      log.error("구매 상세정보 등록 실패", e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-  }
 
 }

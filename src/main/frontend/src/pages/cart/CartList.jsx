@@ -5,9 +5,11 @@ import { deleteCart, getCartList, updateCnt } from '../../api/cartApi';
 import Button from '../../components/common/Button';
 import ListTable from '../../components/common/ListTable';
 import dayjs from 'dayjs';
-import { postBuy, postBuyDetail } from '../../api/buyApi';
+import { postBuy } from '../../api/buyApi';
+import { useNavigate } from 'react-router-dom';
 
 const CartList = () => {
+  const nav = useNavigate();
 
   //장바구니 리스트 저장 state변수
   const [cartList, setCartList] = useState([]);
@@ -19,17 +21,14 @@ const CartList = () => {
   const getList = async() => {
     const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
     setCartList(response.data)
-    //조회한 데이터를 cartNumList에 저장, 체크박스 전부 체크
+    //조회한 데이터를 cartNumList에 저장
     const list = []
     for(let e of response.data){
       list.push(e.cartNum)
     }
     setCartNumList(list)
-    return list
   }
-  
-
-  useEffect(() => {getList().then(list => {})},[])  
+  useEffect(() => {getList()},[])  
 
   //수량과 카트번호 저장 state변수
   const [cntAndCartNum, setCntAndCartNum] = useState({
@@ -67,7 +66,7 @@ const CartList = () => {
 
   //체크박스 선택시 카트번호가 저장될 state변수
   const [checkedItems, setCheckedItems] = useState([]);
-
+  
   //체크한 도서의 총 구매 가격을 계산하는 함수
   const cntPrice = () => {
     let checkedItemsPrice = []
@@ -85,7 +84,6 @@ const CartList = () => {
     return cnt;
   }
   
-  
   //전체 체크박스 클릭 시 실행 함수
   const checkAll= (e) => {
     setCheckedItems(e.target.checked ? cartNumList : [])
@@ -101,22 +99,13 @@ const CartList = () => {
       setCheckedItems(copyItems)
     }
   }
-  for(let e of cartList){
-      const buys = {
-        bookNum : e.book.bookNum,
-        buyCnt : e.cartCnt,
-        buyPrice : e.book.bookPrice*e.cartCnt,
-      }
-      buyDetail.push(buys)
-    }
+
   //선택 구매 버튼 클릭 시 실행 함수
   const clickBuy = async () => {
     const buy = {
       buyPrice : cntPrice(),
       memEmail : JSON.parse(sessionStorage.getItem('loginInfo')).memEmail
     };
-    const response = await postBuy(buy);
-    console.log(buy)
     const buyDetail = []
     for(let e of checkedItems){
       for(let d of cartList){
@@ -124,20 +113,21 @@ const CartList = () => {
           const buys = {
             bookNum : d.book.bookNum,
             buyCnt : d.cartCnt,
-            buyPrice : d.book.bookPrice*e.cartCnt,
+            buyPrice : d.book.bookPrice*d.cartCnt,
           }
           buyDetail.push(buys)
+          deleteCart(d.cartNum)
         }
       }
     }
-    console.log(buyDetail)
-    // const detailResponse = await postBuyDetail(buyDetail)
-    // if(response.status === 201 && detailResponse.status === 201){
-    //   alert('구매 완료')
+    const data = {buyDTO : buy, buyDetailDTOList : buyDetail}
+    const response = await postBuy(data)
+    if(response.status === 201){
+      const result = confirm('구매 완료, 구매 목록 페이지로 이동하시겠습니끼?')
+      result ? nav('../buy-list') : nav(0)
     }
   }
 
-  console.log(cartList)
   
   return (
     <div className={styles.container}>
