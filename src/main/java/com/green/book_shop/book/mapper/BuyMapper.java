@@ -13,4 +13,7 @@ public interface BuyMapper {
 
   //구매 상세 정보 등록 메서드
   void insertBuyDetail(List<BuyDetailDTO> buyDetailDTOList);
+
+  //구매 번호 부여 메서드
+  int getNextBuyNum();
 }

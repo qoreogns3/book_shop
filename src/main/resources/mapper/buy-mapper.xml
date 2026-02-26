@@ -24,9 +24,11 @@
         INSERT INTO SHOP_BUY(
             BUY_PRICE
             , MEM_EMAIL
+            , BUY_NUM
         ) VALUES(
             #{buyPrice}
             , #{memEmail}
+            , #{buyNum}
         )
     </insert>
 
@@ -47,6 +49,12 @@
             )
         </foreach>
     </insert>
+
+<!--  구매 번호 중 가장 큰 구매번호 + 1  -->
+    <select id="getNextBuyNum" resultType="int">
+        SELECT IFNULL(MAX(BUY_NUM), 0) + 1
+        FROM SHOP_BUY
+    </select>
 </mapper>
 
 

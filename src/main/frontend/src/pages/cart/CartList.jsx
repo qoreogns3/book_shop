@@ -5,7 +5,7 @@ import { deleteCart, getCartList, updateCnt } from '../../api/cartApi';
 import Button from '../../components/common/Button';
 import ListTable from '../../components/common/ListTable';
 import dayjs from 'dayjs';
-import { postBuy } from '../../api/buyApi';
+import { postBuy, postBuyDetail } from '../../api/buyApi';
 
 const CartList = () => {
 
@@ -25,17 +25,17 @@ const CartList = () => {
       list.push(e.cartNum)
     }
     setCartNumList(list)
-    setCheckedItems(list)
+    return list
   }
+  
 
-
-  useEffect(() => {getList()},[])  
+  useEffect(() => {getList().then(list => {})},[])  
 
   //수량과 카트번호 저장 state변수
-  const [cntAndCartNum, setCntAndCartNum] = useState(prev => ({
+  const [cntAndCartNum, setCntAndCartNum] = useState({
     cartCnt : 0,
     cartNum : 0
-  }))
+  })
 
   //수량 변경시 실행 함수
   const handleCnt = (e, data) => {
@@ -51,7 +51,7 @@ const CartList = () => {
     putCnt(cntAndCartNum);
     getList();
   }, [cntAndCartNum])
-
+  
   //삭제 버튼 클릭시 실행 함수
   const deleteClick = async (cartNum) => {
     await deleteCart(cartNum);
@@ -59,9 +59,9 @@ const CartList = () => {
   }
 
   //선택 삭제 버튼 클릭 시 실행함수
-  const selectDelete = () => {
+  const selectDelete = async () => {
     for(let e of checkedItems){
-      deleteClick(e)
+      await deleteClick(e)
     }
   }
 
@@ -101,7 +101,14 @@ const CartList = () => {
       setCheckedItems(copyItems)
     }
   }
-
+  for(let e of cartList){
+      const buys = {
+        bookNum : e.book.bookNum,
+        buyCnt : e.cartCnt,
+        buyPrice : e.book.bookPrice*e.cartCnt,
+      }
+      buyDetail.push(buys)
+    }
   //선택 구매 버튼 클릭 시 실행 함수
   const clickBuy = async () => {
     const buy = {
@@ -109,9 +116,24 @@ const CartList = () => {
       memEmail : JSON.parse(sessionStorage.getItem('loginInfo')).memEmail
     };
     const response = await postBuy(buy);
-    console.log(response)
-    if(response.status === 201){
-      alert('구매 완료')
+    console.log(buy)
+    const buyDetail = []
+    for(let e of checkedItems){
+      for(let d of cartList){
+        if(e === d.cartNum){
+          const buys = {
+            bookNum : d.book.bookNum,
+            buyCnt : d.cartCnt,
+            buyPrice : d.book.bookPrice*e.cartCnt,
+          }
+          buyDetail.push(buys)
+        }
+      }
+    }
+    console.log(buyDetail)
+    // const detailResponse = await postBuyDetail(buyDetail)
+    // if(response.status === 201 && detailResponse.status === 201){
+    //   alert('구매 완료')
     }
   }
 

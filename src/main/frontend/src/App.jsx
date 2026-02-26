@@ -10,6 +10,7 @@ import WebStorage from './study/WebStorage'
 import BookDetail from './pages/book/BookDetail'
 import CartList from './pages/cart/CartList'
 import MypageLayout from './components/layout/MypageLayout'
+import CheckBoxTest from './study/CheckBoxTest'
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
 
         {/* 일반회원이 접근하는 페이지들 */}
         <Route path='/' element={<BasicLayout/>}>
+          {/* 체크박스 컨트롤 학습용 컴포넌트 */}
+          <Route path='chk' element={<CheckBoxTest/>}/> 
           {/* 웹스토리지 학습용 컴포넌트 */}
           <Route path='storage' element={<WebStorage/>}/>
           {/* 도서 목록 페이지, URL : Localhost:5173 */}
