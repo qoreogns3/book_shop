@@ -45,6 +45,7 @@
             , I.UPLOAD_FILE_NAME
             , B.BOOK_TITLE
             , MEM_EMAIL
+            , B.BOOK_STOCK
         FROM SHOP_CART C, SHOP_BOOK B, BOOK_IMG I
         WHERE C.BOOK_NUM = B.BOOK_NUM
         AND B.BOOK_NUM = I.BOOK_NUM

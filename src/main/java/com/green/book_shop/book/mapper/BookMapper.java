@@ -14,9 +14,14 @@ public interface BookMapper {
   //모든 책 조회 메서드
   List<BookDTO> getBookList();
 
-  //해당 번호의 도서 조회
+  //해당 번호의 도서 조회 메서드
   BookDTO getBook(int bookNum);
 
-  //다음에 저장될 도서번호 조회하는 쿼리
+  //다음에 저장될 도서번호 조회하는 메서드
   int getNextBookNum();
+
+  //수량 수정 메서드
+  void updateBookCnt(int bookCnt, int bookNum);
+
+
 }

@@ -1,5 +1,6 @@
 package com.green.book_shop.book.controller;
 
+import com.green.book_shop.book.dto.BookDTO;
 import com.green.book_shop.book.dto.CartDTO;
 import com.green.book_shop.book.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -64,4 +65,10 @@ public class CartController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  //선택 삭제 api
+//  @DeleteMapping("/del-carts")
+//  public void deleteCarts(@RequestParam("cartNumList") List<Integer> integerList){
+//
+//  }
 }

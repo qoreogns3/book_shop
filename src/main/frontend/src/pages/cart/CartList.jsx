@@ -10,13 +10,13 @@ import { useNavigate } from 'react-router-dom';
 
 const CartList = () => {
   const nav = useNavigate();
-
+  
   //장바구니 리스트 저장 state변수
   const [cartList, setCartList] = useState([]);
   
   //카트번호 저장 state변수
   const [cartNumList, setCartNumList] = useState([]);
-
+  
   //마운트 시 장바구니 리스트 조회 함수
   const getList = async() => {
     const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
@@ -29,10 +29,14 @@ const CartList = () => {
     setCartNumList(list)
     setCheckedItems(list)
   }
-  useEffect(() => {getList()},[])
+
+  useEffect(() => {
+    getList()
+  },[])
+
   
   //수량변경 후 리스트 조회만 하는 함수
-  const cntGetList = async() => {
+  const GetOnlyList = async() => {
     const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
     setCartList(response.data)
   }
@@ -47,6 +51,10 @@ const CartList = () => {
   const handleCnt = (e, data) => {
     let cntValue = e.target.value.replace(/[^0-9]/g, '')
     cntValue = cntValue === '' ? e.target.value : cntValue
+    if(cntValue > data.book.bookStock){
+      alert(`상품 재고가 부족합니다. \n${data.book.bookTitle} 재고 : ${data.book.bookStock}권`)
+      return;
+    }
     setCntAndCartNum({
       cartCnt : cntValue,
       cartNum : data.cartNum
@@ -55,19 +63,26 @@ const CartList = () => {
   const putCnt = async (data) =>  {await updateCnt(data)}
   useEffect(()=>{
     putCnt(cntAndCartNum);
-    cntGetList();
+    GetOnlyList();
   }, [cntAndCartNum])
   
   //삭제 버튼 클릭시 실행 함수
   const deleteClick = async (cartNum) => {
     await deleteCart(cartNum);
-    getList();
+    GetOnlyList();
   }
 
   //선택 삭제 버튼 클릭 시 실행함수
   const selectDelete = async () => {
-    for(let e of checkedItems){
-      await deleteClick(e)
+    if(checkedItems.length === 0){
+      alert('상품을 선택해 주세요')
+      return;
+    }
+    const chk = confirm('선택한 상품을 삭제하시겠습니까?')
+    if(chk){
+      for(let e of checkedItems){
+        await deleteClick(e)
+      }
     }
   }
 
@@ -114,6 +129,10 @@ const CartList = () => {
 
   //선택 구매 버튼 클릭 시 실행 함수
   const clickBuy = async () => {
+    if(checkedItems.length === 0){
+      alert('상품을 선택해 주세요')
+      return;
+    }
     const buy = {
       buyPrice : cntPrice(),
       memEmail : JSON.parse(sessionStorage.getItem('loginInfo')).memEmail

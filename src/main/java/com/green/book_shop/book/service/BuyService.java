@@ -2,6 +2,7 @@ package com.green.book_shop.book.service;
 
 import com.green.book_shop.book.dto.BuyDTO;
 import com.green.book_shop.book.dto.BuyDetailDTO;
+import com.green.book_shop.book.mapper.BookMapper;
 import com.green.book_shop.book.mapper.BuyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BuyService {
   private final BuyMapper buyMapper;
+  private final BookMapper bookMapper;
 
-  //구매 정보, 상세 정보 등록 기능
+  //구매 정보, 상세 정보 등록, 구매 상품 수량 수정 기능
   @Transactional(rollbackFor = Exception.class)
   public void insertBuy(BuyDTO buyDTO, List<BuyDetailDTO> buyDetailDTOList){
     int buyNum = buyMapper.getNextBuyNum();
@@ -22,6 +24,7 @@ public class BuyService {
     buyMapper.insertBuy(buyDTO);
     for(BuyDetailDTO buyDetailDTO : buyDetailDTOList){
       buyDetailDTO.setBuyNum(buyNum);
+      bookMapper.updateBookCnt(buyDetailDTO.getBuyCnt(), buyDetailDTO.getBookNum());
     }
     buyMapper.insertBuyDetail(buyDetailDTOList);
   }

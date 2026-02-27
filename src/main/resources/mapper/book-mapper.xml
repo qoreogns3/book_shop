@@ -70,6 +70,13 @@
         FROM SHOP_BOOK
     </select>
 
+<!--  상품 구매시 재고 수정  -->
+    <update id="updateBookCnt">
+        UPDATE SHOP_BOOK
+        SET BOOK_STOCK = BOOK_STOCK - #{bookCnt}
+        WHERE BOOK_NUM = #{bookNum}
+    </update>
+
 </mapper>
 
 

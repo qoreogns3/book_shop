@@ -53,3 +53,13 @@ export const deleteCart = async (cartNum) => {
   }
 }
 
+//선택 삭제
+ 
+// export const delCarts = async (cartNumList) => {
+//   try{
+//     const response = await axios.delete('http://locarhost:8080/del=carts', {params : {'cartNumList' : cartNumList}})
+//   }catch(e){
+//     console.log('삭제 오류', e)
+//   }
+// }
+
