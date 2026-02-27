@@ -17,7 +17,7 @@ const CartList = () => {
   //카트번호 저장 state변수
   const [cartNumList, setCartNumList] = useState([]);
 
-  //장바구니 리스트 조회 함수
+  //마운트 시 장바구니 리스트 조회 함수
   const getList = async() => {
     const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
     setCartList(response.data)
@@ -27,8 +27,15 @@ const CartList = () => {
       list.push(e.cartNum)
     }
     setCartNumList(list)
+    setCheckedItems(list)
   }
-  useEffect(() => {getList()},[])  
+  useEffect(() => {getList()},[])
+  
+  //수량변경 후 리스트 조회만 하는 함수
+  const cntGetList = async() => {
+    const response = await getCartList(JSON.parse(sessionStorage.getItem('loginInfo')).memEmail);
+    setCartList(response.data)
+  }
 
   //수량과 카트번호 저장 state변수
   const [cntAndCartNum, setCntAndCartNum] = useState({
@@ -48,7 +55,7 @@ const CartList = () => {
   const putCnt = async (data) =>  {await updateCnt(data)}
   useEffect(()=>{
     putCnt(cntAndCartNum);
-    getList();
+    cntGetList();
   }, [cntAndCartNum])
   
   //삭제 버튼 클릭시 실행 함수
@@ -67,6 +74,9 @@ const CartList = () => {
   //체크박스 선택시 카트번호가 저장될 state변수
   const [checkedItems, setCheckedItems] = useState([]);
   
+  //전체 체크박스 state변수
+  const [isChecked, setIsChecked] = useState(true); 
+
   //체크한 도서의 총 구매 가격을 계산하는 함수
   const cntPrice = () => {
     let checkedItemsPrice = []
@@ -88,9 +98,11 @@ const CartList = () => {
   const checkAll= (e) => {
     setCheckedItems(e.target.checked ? cartNumList : [])
   }
+  
 
   //체크 박스 클릭 시 실행할 함수
   const checkItem = (e) => {
+    setIsChecked(false)
     if(e.target.checked){
       setCheckedItems(prev => [...prev, Number(e.target.value)])
     }
@@ -138,7 +150,11 @@ const CartList = () => {
             <td>
               <input
                 type='checkbox'
-                onChange = {e => checkAll(e)}
+                checked = {isChecked}
+                onChange = {e => {
+                  checkAll(e)
+                  isChecked ? setIsChecked(false) :setIsChecked(true)
+                }}
               />
             </td>
             <td>도서 정보</td>
