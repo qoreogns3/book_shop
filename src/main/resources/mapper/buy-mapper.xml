@@ -15,7 +15,6 @@
         <id     property="buyDetailNum"     column="BUY_DETAIL_NUM"/>
         <result property="bookNum"          column="BOOK_NUM"/>
         <result property="buyCnt"           column="BUY_CNT"/>
-        <result property="buyPrice"         column="BUY_PRICE"/>
         <result property="buyNum"           column="BUY_NUM"/>
     </resultMap>
 
@@ -37,14 +36,12 @@
         INSERT INTO BUY_DETAIL(
             BOOK_NUM
             , BUY_CNT
-            , BUY_PRICE
             , BUY_NUM
         ) VALUES
         <foreach collection="buyDetailDTOList" item="buyDetail" separator=",">
             (
                 #{buyDetail.bookNum},
                 #{buyDetail.buyCnt},
-                #{buyDetail.buyPrice},
                 #{buyDetail.buyNum}
             )
         </foreach>
