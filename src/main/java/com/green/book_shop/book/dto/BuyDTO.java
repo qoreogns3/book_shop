@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,5 +15,6 @@ public class BuyDTO {
   private int buyPrice;
   private String memEmail;
   private LocalDateTime buyDate;
+  private List<BuyDetailDTO> buyDetailList;
 }
 

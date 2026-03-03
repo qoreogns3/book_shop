@@ -2,6 +2,7 @@ package com.green.book_shop.book.service;
 
 import com.green.book_shop.book.dto.BuyDTO;
 import com.green.book_shop.book.dto.BuyDetailDTO;
+import com.green.book_shop.book.dto.BuyRequestDTO;
 import com.green.book_shop.book.mapper.BookMapper;
 import com.green.book_shop.book.mapper.BuyMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,13 @@ public class BuyService {
     buyMapper.insertBuyDetail(buyDetailDTOList);
   }
 
-//  //구매 상세정보 등록 기능
-//  public void insertBuyDetail(List<BuyDetailDTO> buyDetailDTOList){
-//    for(BuyDetailDTO buyDetailDTO : buyDetailDTOList){
-//      buyDetailDTO.setBuyNum(buyMapper.getNextBuyNum());
-//    }
-//    buyMapper.insertBuyDetail(buyDetailDTOList);
-//  }
+  //구매 정보 조회 기능
+  public List<BuyDTO> getBuyList(){
+    return buyMapper.getBuy();
+  }
+
+  //구매 상세 정보 조회 기능
+  public List<BuyDetailDTO> getBuyDetailList(){
+    return buyMapper.getBuyDetail();
+  }
 }

@@ -5,6 +5,7 @@ import { insertCart } from '../../api/cartApi';
 import styles from './BookDetail.module.css'
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
+import { postBuy } from '../../api/buyApi';
 
 const BookDetail = () => {
   const nav = useNavigate();
@@ -84,6 +85,28 @@ const BookDetail = () => {
     }
   }
   
+  console.log(bookData)
+  console.log(cart)
+
+  //바로구매 버튼 클릭시 실행 함수
+  const regBuy = async () => {
+    const buy = {
+      buyPrice : cart.cartCnt*bookData.bookPrice,
+      memEmail : cart.memEmail
+    }
+    const buyDetail = [{
+      bookNum : bookData.bookNum,
+      buyCnt : cart.cartCnt, 
+    }]
+    const data = {buyDTO : buy, buyDetailDTOList : buyDetail}
+    console.log(data)
+    const response = await postBuy(data)
+    if(response.status === 201){
+      const result = confirm('구매 완료, 구매 목록 페이지로 이동하시겠습니끼?')
+      result ? nav('../mypage/buy-list') : nav(0)
+    }
+  }
+  
 
   return (
     <div className={styles.container}>
@@ -112,6 +135,7 @@ const BookDetail = () => {
             />
             <Button
               title = '바로구매'
+              onClick = {e => regBuy()}
             />
           </div>
         </div>

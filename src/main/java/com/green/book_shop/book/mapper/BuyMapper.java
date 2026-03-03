@@ -16,4 +16,10 @@ public interface BuyMapper {
 
   //구매 번호 부여 메서드
   int getNextBuyNum();
+
+  //구매 목록 조회 메서드
+  List<BuyDTO> getBuy();
+
+  //구매 상세 목록 조회 메서드
+  List<BuyDetailDTO> getBuyDetail();
 }

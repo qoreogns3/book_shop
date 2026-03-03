@@ -144,7 +144,6 @@ const CartList = () => {
           const buys = {
             bookNum : d.book.bookNum,
             buyCnt : d.cartCnt,
-            buyPrice : d.book.bookPrice*d.cartCnt,
           }
           buyDetail.push(buys)
           deleteCart(d.cartNum)

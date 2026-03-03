@@ -9,15 +9,18 @@
         <result property="buyPrice"         column="BUY_PRICE"/>
         <result property="memEmail"         column="MEM_EMAIL"/>
         <result property="buyDate"          column="BUY_DATE"/>
+        <collection property="buyDetailList" resultMap="com.green.book_shop.book.mapper.BuyMapper.buyDetailResultMap"/>
     </resultMap>
 
-    <resultMap  id="buyDetailResultMap"     type="com.green.book_shop.book.mapper.BuyMapper">
+    <resultMap  id="buyDetailResultMap"     type="com.green.book_shop.book.dto.BuyDetailDTO">
         <id     property="buyDetailNum"     column="BUY_DETAIL_NUM"/>
         <result property="bookNum"          column="BOOK_NUM"/>
         <result property="buyCnt"           column="BUY_CNT"/>
         <result property="buyNum"           column="BUY_NUM"/>
+        <association property="bookDTO"     resultMap="com.green.book_shop.book.mapper.BookMapper.book"/>
     </resultMap>
-
+<!-- useGeneratedKeys="true" -> auto_increment된 key를 insert 시 사용하겠다는 의미 -->
+<!-- keyProperty="buyNum" -> 이 쿼리의 빈값을 채우기 위해 가져온 객체(buyDTO)의 buyNum 변수에 생성된 key를 넣어주겠다. -->
 <!-- 구매 정보 등록 쿼리 -->
     <insert id="insertBuy">
         INSERT INTO SHOP_BUY(
@@ -51,6 +54,29 @@
     <select id="getNextBuyNum" resultType="int">
         SELECT IFNULL(MAX(BUY_NUM), 0) + 1
         FROM SHOP_BUY
+    </select>
+
+<!--  구매 목록 조회  -->
+    <select id="getBuy" resultMap="buyResultMap">
+        SELECT BUY_NUM
+        , BUY_PRICE
+        , MEM_EMAIL
+        , BUY_DATE
+        , (SELECT COUNT(BUY_DETAIL_NUM) FROM BUY_DETAIL WHERE BUY_NUM = S.BUY_NUM) BUY_CNT
+        , (SELECT MIN(BOOK_NUM) FROM BUY_DETAIL WHERE BUY_NUM = S.BUY_NUM) BOOK_NUM
+        , (SELECT BOOK_TITLE FROM SHOP_BOOK WHERE BOOK_NUM = (SELECT MIN(BOOK_NUM) FROM BUY_DETAIL WHERE BUY_NUM = S.BUY_NUM)) BOOK_TITLE
+        FROM SHOP_BUY S;
+    </select>
+
+<!--  구매 상세 목록 조회  -->
+    <select id="getBuyDetail" resultMap="buyDetailResultMap">
+        SELECT BUY_DETAIL_NUM
+        , BOOK_NUM
+        , BUY_CNT
+        , BUY_NUM
+        , (SELECT BOOK_TITLE FROM SHOP_BOOK WHERE BOOK_NUM = D.BOOK_NUM) BOOK_TITLE
+        , (SELECT BOOK_PRICE FROM SHOP_BOOK WHERE BOOK_NUM = D.BOOK_NUM) BOOK_PRICE
+        FROM BUY_DETAIL D;
     </select>
 </mapper>
 

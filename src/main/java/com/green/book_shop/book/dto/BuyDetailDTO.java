@@ -11,6 +11,6 @@ public class BuyDetailDTO {
   private int buyDetailNum;
   private int bookNum;
   private int buyCnt;
-  private int buyPrice;
   private int buyNum;
+  private BookDTO bookDTO;
 }
