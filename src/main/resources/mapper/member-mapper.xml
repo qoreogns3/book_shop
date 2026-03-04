@@ -60,7 +60,14 @@
         WHERE MEM_EMAIL = #{memEmail}
     </select>
 
-
+<!--  매니저가 조회할 날짜별 회원가입수  -->
+    <select id="cntMember" resultType="java.util.HashMap">
+        SELECT
+            COUNT(MEM_EMAIL) MEM_CNT
+            , (TO_CHAR(JOIN_DATE, 'YYYY-MM-DD')) JOIN_DATE
+        FROM SHOP_MEMBER
+        GROUP BY (TO_CHAR(JOIN_DATE, 'YYYY-MM-DD'))
+    </select>
 </mapper>
 
 

@@ -90,6 +90,10 @@ const BookDetail = () => {
 
   //바로구매 버튼 클릭시 실행 함수
   const regBuy = async () => {
+    if(sessionStorage.length === 0){
+      confirm('로그인 하시겠습니까?')&& nav('/login')
+      return;
+    }
     const buy = {
       buyPrice : cart.cartCnt*bookData.bookPrice,
       memEmail : cart.memEmail

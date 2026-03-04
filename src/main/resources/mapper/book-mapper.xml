@@ -14,6 +14,7 @@
         <result column="PUBLISH_DATE"   property="publishDate" />
         <result column="CATE_NUM"       property="cateNum" />
     <!--<association property="" resultMap=""/> 1:1 관계 설정-->
+        <association property="cateDTO" resultMap="com.green.book_shop.cate.mapper.CateMapper.cate"/>
         <collection property="bookImgList" resultMap="com.green.book_shop.book.mapper.BookImgMapper.bookImg"/><!-- 1:N 관계 설정-->
         <!--property = "멤버변수명"  resultMap = "실제 resultmap이 존재하는 namespace . result map ID"-->
     </resultMap>
@@ -76,6 +77,15 @@
         SET BOOK_STOCK = BOOK_STOCK - #{bookCnt}
         WHERE BOOK_NUM = #{bookNum}
     </update>
+
+<!--  카테고리 별 책의 수 조회  -->
+    <select id="cntCate" resultType="java.util.HashMap">
+        SELECT
+            COUNT(BOOK_NUM) BOOK_CNT
+            , (SELECT CATE_NAME FROM BOOK_CATEGORY WHERE CATE_NUM = S.CATE_NUM) CATE_NAME
+        FROM SHOP_BOOK S
+        GROUP BY CATE_NUM
+    </select>
 
 </mapper>
 

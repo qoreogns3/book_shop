@@ -5,6 +5,7 @@ import com.green.book_shop.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -35,4 +36,10 @@ public class MemberService {
   public MemberDTO loginEmail(MemberDTO memberDTO){
     return memberMapper.loginEmail(memberDTO);
   }
+
+  //매니저 멤버 조회 기능
+  public List<HashMap<String, Object>> cntMember(){
+    return memberMapper.cntMember();
+  }
+
 }

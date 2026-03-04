@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,5 +40,10 @@ public class BookService {
   //다음에 저장될 도서 번호 조회 기능
   public int getNextBookNum(){
     return bookMapper.getNextBookNum();
+  }
+
+  //카테고리 별 책 수량 조회 기능
+  public List<HashMap<String, Object>> cntCate(){
+    return bookMapper.cntCate();
   }
 }

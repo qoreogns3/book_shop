@@ -12,6 +12,8 @@ import CartList from './pages/cart/CartList'
 import MypageLayout from './components/layout/MypageLayout'
 import CheckBoxTest from './study/CheckBoxTest'
 import BuyList from './pages/buy/BuyList'
+import MyPage from './pages/member/MyPage'
+import ManagerDashboard from './pages/manager/ManagerDashboard'
 
 function App() {
 
@@ -49,6 +51,8 @@ function App() {
         <Route path='/manage' element={<ManagerLayout/>}>
           {/* 상품 등록 페이지, URL : Localhost:5173/manage/book-form */}
           <Route path='book-form' element={<BookForm/>}/>
+          {/* 매니저 대시보드 페이지, URL : Localhost:5173/manage */}
+          <Route path='' element={<ManagerDashboard/>}/>
         </Route>
 
         {/* 마이페이지 */}
@@ -57,6 +61,8 @@ function App() {
           <Route path='cart' element={<CartList/>}/>
           {/* 구매목록 페이지, URL : Localhost:5173/mypage/buy-list*/}
           <Route path='buy-list' element={<BuyList/>}/>
+          {/* 내 정보 수정 페이지, URL : Localhost:5173/mypage/my-page */}
+          <Route path='my-pages' element={<MyPage/>}/>
         </Route>
 
       </Routes>

@@ -9,12 +9,12 @@
 }
 
 .list_table > tbody > tr:nth-child(odd){
-  background-color: rgba(241, 218, 183, 0.3);
+  background-color: white;
   transition: 0.15s;
 }
 
 .list_table > tbody > tr:nth-child(even){
-  background-color: white;
+  background-color: rgba(207, 205, 201, 0.3);
   transition: 0.15s;
 }
 

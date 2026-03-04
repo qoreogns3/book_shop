@@ -4,6 +4,7 @@ import com.green.book_shop.member.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -20,4 +21,7 @@ public interface MemberMapper {
   //로그인 메서드
   MemberDTO login(MemberDTO memberDTO);
   MemberDTO loginEmail(MemberDTO memberDTO);
+
+  // 매니저 멤버 조회 메서드
+  List<HashMap<String, Object>> cntMember();
 }

@@ -81,4 +81,15 @@ public class BookController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  //카테고리 별 책 수량 조회 api
+  @GetMapping("/cntCate")
+  public ResponseEntity<?> cntCate(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(bookService.cntCate());
+    }catch (Exception e){
+      log.error("조회 에러", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

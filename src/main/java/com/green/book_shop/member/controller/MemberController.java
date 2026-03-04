@@ -72,4 +72,15 @@ public class MemberController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  //매니저 멤버 조회 api
+  @GetMapping("/cnt")
+  public ResponseEntity<?> cntMember(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(memberService.cntMember());
+    }catch (Exception e){
+      log.error("멤버 조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

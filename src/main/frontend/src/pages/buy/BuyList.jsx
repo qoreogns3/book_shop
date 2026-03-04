@@ -18,19 +18,22 @@ const BuyList = () => {
     const response2 = await getBuyDetailList()
     setBuyList(response.data);
     setBuyDetailList(response2.data);
-    console.log(response2.data)
   }
   useEffect(()=>{getBuy()}, [])
 
   //버튼 클릭 시 상세 정보 슬라이드 유/무 저장 함수
-  const [openNum, setOpenNum] = useState(null)
-  
+  const [open, setOpen] = useState([])
 
-  
+  //클릭 시 상세 정보 슬라이드 실행 함수
+  const clickTable = (i) => {
+    if(open.includes(i)){
+      setOpen(open.filter(e => e != i))
+    }
+    else{
+      setOpen(prev => [...prev, i])
+    }
+  }
 
-  
-  console.log(buyList)
-  console.log(buyDetailList)
   return (
     <div>
       {buyList.length === 0 ? <p>구매 정보가 없습니다.</p> : 
@@ -38,7 +41,7 @@ const BuyList = () => {
         {
           buyList.map((data ,i) => {return(
             <div key={i}>
-              <table className={styles.buy_list} onClick={() => setOpenNum(i)}>
+              <table className={styles.buy_list} onClick={() => {clickTable(i)}}>
                 <colgroup>
                   <col width='5%'/>
                   <col width='55%'/>
@@ -54,30 +57,47 @@ const BuyList = () => {
                   </tr>
                 </thead>
               </table>
-              <ListTable>
-                <thead>
-                  <tr>
-                    <td>No</td>
-                    <td>도서 정보</td>
-                    <td>가격</td>
-                    <td>수량</td>
-                    <td>구매 가격</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    buyDetailList.filter(e => e.buyNum === data.buyNum).map((detail, j) => {return(
-                      <tr>
-                        <td>{buyDetailList.filter(e => e.buyNum === data.buyNum).length - j}</td>
-                        <td>{detail.bookDTO.bookTitle}</td>
-                        <td>{detail.bookDTO.bookPrice}</td>
-                        <td>{detail.buyCnt}</td>
-                        <td>{detail.bookDTO.bookPrice*detail.buyCnt}</td>
-                      </tr>
-                    )})
-                  }
-                </tbody>
-              </ListTable>
+              <div className={open.includes(i) ? styles.detail_open : styles.detail}>
+                <table className={styles.detail_table}>
+                  <colgroup>
+                    <col width='5%'/>
+                    <col width=''/>
+                    <col width='13%'/>
+                    <col width='13%'/>
+                    <col width='13%'/>
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <td>No</td>
+                      <td>도서 정보</td>
+                      <td>가격</td>
+                      <td>수량</td>
+                      <td>구매 가격</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      buyDetailList.filter(e => e.buyNum === data.buyNum).map((detail, j) => {return(
+                        <tr key={j}>
+                          <td>{buyDetailList.filter(e => e.buyNum === data.buyNum).length - j}</td>
+                          <td>
+                            <div className={styles.img_title}>
+                              <img 
+                                src = {`http://localhost:8080/upload/${detail.bookDTO.bookImgList[0].uploadFileName}`}
+                                className={styles.bookImg}  
+                              />
+                              {detail.bookDTO.bookTitle}
+                            </div>
+                          </td>
+                          <td>{detail.bookDTO.bookPrice.toLocaleString()}원</td>
+                          <td>{detail.buyCnt}</td>
+                          <td>{detail.bookDTO.bookPrice*detail.buyCnt.toLocaleString()}원</td>
+                        </tr>
+                      )})
+                    }
+                  </tbody>
+                </table>
+              </div>
             </div>
           )})
         }

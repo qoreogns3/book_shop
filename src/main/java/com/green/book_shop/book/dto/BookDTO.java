@@ -1,5 +1,6 @@
 package com.green.book_shop.book.dto;
 
+import com.green.book_shop.cate.dto.CateDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,4 +25,5 @@ public class BookDTO {
 
 //  bookDTO 와 bookImgDTO 가 1:N 관계일때
   private List<BookImgDTO> bookImgList;
+  private CateDTO cateDTO;
 }

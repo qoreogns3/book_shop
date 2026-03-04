@@ -3,6 +3,7 @@ package com.green.book_shop.book.mapper;
 import com.green.book_shop.book.dto.BookDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -23,5 +24,6 @@ public interface BookMapper {
   //수량 수정 메서드
   void updateBookCnt(int bookCnt, int bookNum);
 
-
+  //카테고리 별 책 수량 조회 메서드
+  List<HashMap<String, Object>> cntCate();
 }

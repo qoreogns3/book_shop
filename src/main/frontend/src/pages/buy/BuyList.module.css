@@ -8,9 +8,77 @@
 .buy_list > thead > tr{
   background-color: rgb(0, 0, 0);
   color: white;
+  transition: 0.15s;
+}
+
+.buy_list > thead > tr:hover{
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .buy_list td:first-child{
   border-right: 1px solid white;
   padding: 10px;
+}
+
+.detail {
+  max-height: 0;
+  overflow: hidden;
+  width: 100%;
+  transition: max-height 0.4s ease;
+  
+}
+
+.detail_open{
+  max-height: 500px;
+}
+
+.detail_table{
+  width: 95%;
+  text-align: center;
+  margin-bottom: 3rem;
+  margin : 0px auto 3rem;
+}
+
+.detail_table > thead > tr{
+  background-color: rgb(141, 137, 137);
+  color: white;
+}
+
+.detail_table > tbody > tr:nth-child(even){
+  background-color: rgba(207, 205, 201, 0.3);
+  transition: 0.15s;
+}
+
+.detail_table > tbody > tr:nth-child(odd){
+  background-color: white;
+  transition: 0.15s;
+}
+
+.detail_table > tbody > tr:nth-child(odd):hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+.detail_table > tbody > tr:nth-child(even):hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+.detail_table > tbody > tr > td{
+  vertical-align: middle;
+}
+
+.detail_table td{
+  border-left: 1px solid white;
+  padding: 5px;
+}
+
+.bookImg {
+  width: 40px;
+}
+
+.img_title{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 1rem;
 }
