@@ -79,6 +79,48 @@
         , (SELECT UPLOAD_FILE_NAME FROM BOOK_IMG WHERE BOOK_NUM = D.BOOK_NUM AND IS_MAIN = 'Y') UPLOAD_FILE_NAME
         FROM BUY_DETAIL D;
     </select>
+
+<!--  상품 별 판매 수량 조회  -->
+    <select id="getBuyCnt" resultMap="buyDetailResultMap">
+        SELECT
+            SUM(BUY_CNT) BUY_CNT
+            , BOOK_NUM
+            , (SELECT BOOK_TITLE FROM SHOP_BOOK WHERE BOOK_NUM = D.BOOK_NUM) BOOK_TITLE
+        FROM BUY_DETAIL D
+        GROUP BY BOOK_NUM
+        ORDER BY BOOK_NUM;
+    </select>
+
+<!--  날짜별 판매 수량 조회  -->
+    <select id="getDateCnt" resultType="java.util.HashMap">
+        SELECT TO_CHAR(BUY_DATE, 'YYYY-MM-DD') BUY_DATE
+            , SUM(BUY_CNT) BUY_CNT
+        FROM SHOP_BUY B, BUY_DETAIL D
+        WHERE B.BUY_NUM = D.BUY_NUM
+        GROUP BY TO_CHAR(BUY_DATE, 'YYYY-MM-DD')
+        ORDER BY BUY_DATE
+    </select>
+
+<!--  구매 랭킹 조회  -->
+    <select id="getRank" resultType="java.util.HashMap">
+        SELECT SUM(BUY_CNT) BUY_CNT, SUM(BUY_PRICE) BUY_PRICE, MEM_EMAIL
+        FROM(
+            SELECT SUM(BUY_CNT) BUY_CNT, D.BUY_NUM, MEM_EMAIL, BUY_PRICE
+            FROM BUY_DETAIL D, SHOP_BUY B
+            WHERE D.BUY_NUM = B.BUY_NUM
+            GROUP BY D.BUY_NUM
+        ) A
+        GROUP BY MEM_EMAIL
+        ORDER BY BUY_PRICE DESC
+    </select>
+
+<!--  날짜별 매출 조회  -->
+    <select id="getDatePrice" resultType="java.util.HashMap">
+        SELECT TO_CHAR(BUY_DATE, 'YYYY-MM-DD') BUY_DATE
+        , SUM(BUY_PRICE) BUY_PRICE
+        FROM SHOP_BUY
+        GROUP BY TO_CHAR(BUY_DATE, 'YYYY-MM-DD')
+    </select>
 </mapper>
 
 

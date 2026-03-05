@@ -4,6 +4,7 @@ import com.green.book_shop.book.dto.BuyDTO;
 import com.green.book_shop.book.dto.BuyDetailDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -22,4 +23,16 @@ public interface BuyMapper {
 
   //구매 상세 목록 조회 메서드
   List<BuyDetailDTO> getBuyDetail();
+
+  //구매 상품 수량 조회 메서드
+  List<BuyDetailDTO> getBuyCnt();
+
+  //날짜별 판매 수량 조회 메서드
+  List<HashMap<String, Object>> getDateCnt();
+
+  //랭크 조회 메서드
+  List<HashMap<String, Object>> getRank();
+
+  //날짜별 매출 조회 메서드
+  List<HashMap<String, Object>> getDatePrice();
 }

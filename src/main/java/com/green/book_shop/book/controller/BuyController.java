@@ -53,5 +53,47 @@ public class BuyController {
     }
   }
 
+  //구매 상품 수량 조회 api
+  @GetMapping("/buycnt")
+  public ResponseEntity<?> getBuyCnt(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getBuyCnt());
+    }catch (Exception e){
+      log.error("조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
+  //날짜별 판매 수량 조회 api
+  @GetMapping("/date")
+  public ResponseEntity<?> getDateCnt(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getDateCnt());
+    }catch (Exception e){
+      log.error("조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  //랭크 조회 api
+  @GetMapping("/rank")
+  public ResponseEntity<?> getRank(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getRank());
+    }catch (Exception e){
+      log.error("조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  //날짜별 매출 조회 api
+  @GetMapping("/price")
+  public ResponseEntity<?> getDatePrice(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getDatePrice());
+    }catch (Exception e){
+      log.error("조회 실패", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

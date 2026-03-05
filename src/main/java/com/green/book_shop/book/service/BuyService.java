@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -38,5 +39,25 @@ public class BuyService {
   //구매 상세 정보 조회 기능
   public List<BuyDetailDTO> getBuyDetailList(){
     return buyMapper.getBuyDetail();
+  }
+
+  //구매 상품 수량 조회 기능
+  public List<BuyDetailDTO> getBuyCnt(){
+    return buyMapper.getBuyCnt();
+  }
+
+  //날짜별 판매 수량 조회 기능
+  public List<HashMap<String, Object>> getDateCnt(){
+    return buyMapper.getDateCnt();
+  }
+
+  //랭크 조회 기능
+  public List<HashMap<String, Object>> getRank(){
+    return buyMapper.getRank();
+  }
+
+  //날짜별 매출 조회 기능
+  public List<HashMap<String, Object>> getDatePrice(){
+    return buyMapper.getDatePrice();
   }
 }
