@@ -57,3 +57,12 @@ export const getPrice = async () => {
     console.log('매출 조회 실패', e)
   }
 }
+
+export const getStock = async () => {
+  try{
+    const response = await axios.get('http://localhost:8080/books/stock')
+    return response;
+  }catch(e){
+    console.log('재고 조회 실패', e)
+  }
+}

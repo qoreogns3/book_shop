@@ -87,6 +87,14 @@
         GROUP BY CATE_NUM
     </select>
 
+<!--  재고 조회  -->
+    <select id="getStock" resultMap="book">
+        SELECT BOOK_TITLE, BOOK_STOCK
+        FROM SHOP_BOOK
+        WHERE BOOK_STOCK &lt; 6
+        ORDER BY BOOK_STOCK ASC
+    </select>
+
 </mapper>
 
 

@@ -32,10 +32,10 @@ public class BuyController {
   }
 
   //구매 정보 조회 api
-  @GetMapping("")
-  public ResponseEntity<?> getBuyList(){
+  @GetMapping("/{memEmail}")
+  public ResponseEntity<?> getBuyList(@PathVariable("memEmail") String memEmail){
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(buyService.getBuyList());
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getBuyList(memEmail));
     }catch (Exception e){
       log.error("구매 정보 조회 실패", e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -43,10 +43,10 @@ public class BuyController {
   }
 
   //구매 상세 정보 조회 api
-  @GetMapping("/detail")
-  public ResponseEntity<?> getBuyDetailList(){
+  @GetMapping("/detail/{memEmail}")
+  public ResponseEntity<?> getBuyDetailList(@PathVariable("memEmail") String memEmail){
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(buyService.getBuyDetailList());
+      return ResponseEntity.status(HttpStatus.OK).body(buyService.getBuyDetailList(memEmail));
     }catch (Exception e){
       log.error("구매 상세 정보 조회 실패", e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

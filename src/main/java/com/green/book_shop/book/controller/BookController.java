@@ -92,4 +92,15 @@ public class BookController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  //재고 5권이하 도서 조회
+  @GetMapping("/stock")
+  public ResponseEntity<?> getStock(){
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(bookService.getStock());
+    }catch (Exception e){
+      log.error("조회 에러", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

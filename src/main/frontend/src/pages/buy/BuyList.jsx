@@ -5,18 +5,19 @@ import dayjs from 'dayjs'
 import styles from './BuyList.module.css'
 
 const BuyList = () => {
-
+  const memEmail = JSON.parse(sessionStorage.getItem('loginInfo')).memEmail
   //구매 정보 저장 state 변수
   const [buyList, setBuyList] = useState([])
 
   //구매 상세 정보 저장 state변수
   const [buyDetailList, setBuyDetailList] = useState([])
 
+  console.log(buyDetailList)
   //구매 정보, 상세 정보 조회 함수
   const getBuy = async () => {
-    const response = await getBuyList();
-    const response2 = await getBuyDetailList()
-    setBuyList(response.data);
+    const response = await getBuyList(memEmail);
+    const response2 = await getBuyDetailList(memEmail)
+    setBuyList(response.data);  
     setBuyDetailList(response2.data);
   }
   useEffect(()=>{getBuy()}, [])

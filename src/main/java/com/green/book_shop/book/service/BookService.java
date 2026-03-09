@@ -46,4 +46,9 @@ public class BookService {
   public List<HashMap<String, Object>> cntCate(){
     return bookMapper.cntCate();
   }
+
+  //재고 5권이하 도서 조회 기능
+  public List<BookDTO> getStock(){
+    return bookMapper.getStock();
+  }
 }

@@ -32,13 +32,13 @@ public class BuyService {
   }
 
   //구매 정보 조회 기능
-  public List<BuyDTO> getBuyList(){
-    return buyMapper.getBuy();
+  public List<BuyDTO> getBuyList(String memEmail){
+    return buyMapper.getBuy(memEmail);
   }
 
   //구매 상세 정보 조회 기능
-  public List<BuyDetailDTO> getBuyDetailList(){
-    return buyMapper.getBuyDetail();
+  public List<BuyDetailDTO> getBuyDetailList(String memEmail){
+    return buyMapper.getBuyDetail(memEmail);
   }
 
   //구매 상품 수량 조회 기능

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './ManagerDashboard.module.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, PieChart, Cell, BarChart, Bar, AreaChart, Area } from 'recharts';
-import { cntCateBook, getBuyCnt, getCntMember, getDateCnt, getPrice, getRank } from '../../api/manager';
+import { cntCateBook, getBuyCnt, getCntMember, getDateCnt, getPrice, getRank, getStock } from '../../api/manager';
 import ListTable from '../../components/common/ListTable';
 
 const ManagerDashboard = () => {
@@ -17,6 +17,8 @@ const ManagerDashboard = () => {
   const [rank, setRank] = useState([]);
   //날짜 별 매출 저장 state변수
   const [price, setPrice] = useState([]);
+  //재고 5권이하 도서 저장 state변수
+  const [bookStock, setBookStock] = useState([]);
   
   //오늘 날짜 저장 변수
   const today = new Date;
@@ -107,6 +109,12 @@ const ManagerDashboard = () => {
     setPrice(response.data)
   }
 
+  //재고 5권이하 도서 조회
+  const getBookStock = async () => {
+    const response = await getStock();
+    setBookStock(response.data)
+  }
+
   useEffect(()=>{
     getMemberCnt(); 
     getCntBook(); 
@@ -114,6 +122,7 @@ const ManagerDashboard = () => {
     getCntDate();
     getMemberRank();
     getDatePrice();
+    getBookStock();
   }, [])
 
   
@@ -257,33 +266,28 @@ const ManagerDashboard = () => {
           <Area type="BUY_CNT" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </div>
-      <div>
-        <div>
-          <p>이 달의 우수 고객</p> 
-          <p className={styles.vip}>{rank[0]?.MEM_EMAIL} 님</p >
-        </div>
+      <div className={styles.stock_div}>
+        <p>재고 5권 이하 도서 목록</p>
         <ListTable>
           <thead>
             <tr>
-              <td>랭킹</td>
-              <td>이메일</td>
-              <td>구매건수</td>
-              <td>구매금액</td>
+              <td>제목</td>
+              <td>재고</td>
             </tr>
           </thead>
           <tbody>
             {
-              rank.map((data, i)=>{return(
+              bookStock.map((data, i) => {return(
                 <tr key={i}>
-                  <td>{i+1}</td>
-                  <td>{data.MEM_EMAIL}</td>
-                  <td>{data.BUY_CNT}</td>
-                  <td>{data.BUY_PRICE}</td>
+                  <td>{data.bookTitle}</td>
+                  <td>{data.bookStock}</td>
                 </tr>
               )})
             }
           </tbody>
         </ListTable>
+        
+
       </div>
     </div>
   )

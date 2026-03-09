@@ -26,4 +26,7 @@ public interface BookMapper {
 
   //카테고리 별 책 수량 조회 메서드
   List<HashMap<String, Object>> cntCate();
+
+  //재고 5권이하 도서 조회 메서드
+  List<BookDTO> getStock();
 }

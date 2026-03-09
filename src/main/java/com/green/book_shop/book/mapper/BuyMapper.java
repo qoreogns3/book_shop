@@ -19,10 +19,10 @@ public interface BuyMapper {
   int getNextBuyNum();
 
   //구매 목록 조회 메서드
-  List<BuyDTO> getBuy();
+  List<BuyDTO> getBuy(String memEmail);
 
   //구매 상세 목록 조회 메서드
-  List<BuyDetailDTO> getBuyDetail();
+  List<BuyDetailDTO> getBuyDetail(String memEmail);
 
   //구매 상품 수량 조회 메서드
   List<BuyDetailDTO> getBuyCnt();
